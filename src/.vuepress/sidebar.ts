@@ -12,6 +12,12 @@ export default sidebar({
       children: "structure",
     },
     {
+      text: "AI",
+      icon: "cpu",
+      prefix: "ai/",
+      children: "structure",
+    },
+    {
       text: "文档",
       icon: "book",
       prefix: "guide/",
