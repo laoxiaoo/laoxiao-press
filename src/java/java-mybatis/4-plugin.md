@@ -2,7 +2,7 @@
 
 # 四大接口
 
-![image-20220606211214237](image/3-plugin/image-20220606211214237.png)
+![image-20220606211214237](./image/3-plugin/image-20220606211214237.png)
 
 > Executor
 >
@@ -28,7 +28,7 @@
 
 # 执行过程
 
-![image-20250516194249689](image/4-plugin/image-20250516194249689.png)
+![image-20250516194249689](./image/4-plugin/image-20250516194249689.png)
 
 # 原理
 

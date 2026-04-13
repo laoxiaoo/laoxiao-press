@@ -63,7 +63,7 @@ static class Entry extends WeakReference<ThreadLocal<?>> {
 - value 即我们set的值
 - 当threadlocal强引用（即定义的时候）断开后，弱引用GC后就会垃圾回收，value还没有被回收，所以还是需要手动remove
 
-![image-20220423141053022](image/api/image-20220423141053022.png)
+![image-20220423141053022](./image/api/image-20220423141053022.png)
 
 ## Hash冲突解决
 
@@ -160,7 +160,7 @@ public ArrayList() {
 
 > LinkedList
 
-LinkedList的成员变量有Node<E> first和Node<E> last，Node.class是LinkedList内部私有静态类
+LinkedList的成员变量有 `Node<E> first` 和 `Node<E> last`，`Node.class` 是 LinkedList 内部私有静态类
 
 ```java
 //指向第一个节点

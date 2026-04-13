@@ -28,7 +28,7 @@ JUC安全集合 -->Concurrent类
 
 ## 1.7版本
 
-![image-20250407124606533](image/5-juc-con/image-20250407124606533.png)
+![image-20250407124606533](./image/5-juc-con/image-20250407124606533.png)
 
 它维护了一个segment 数组，每个segment对应一把锁，Segment 通过继承 ReentrantLock 来进行加锁，所以每次需要加锁的操作锁住的是一个 segment，这样只要保证每个 Segment 是线程安全的，也就实现了全局的线程安全。
 
@@ -41,7 +41,7 @@ JUC安全集合 -->Concurrent类
 
 采用CAS的方式，生成头结点，然后如果当前节点有hash冲突，采用synchronized的方式进行对当前节点链表/红黑树加锁
 
-![image-20250521102808843](image/5-juc-con/image-20250521102808843.png)
+![image-20250521102808843](./image/5-juc-con/image-20250521102808843.png)
 
 ### 重要属性
 

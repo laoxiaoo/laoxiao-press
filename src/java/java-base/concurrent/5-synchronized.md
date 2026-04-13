@@ -33,7 +33,7 @@
 - 每个Java对象*都关联一个*Monitor对象，
 - 如果使用synchronized(object)给对象上锁〈重量级)之后，该对象头的Mark Word 中就被设置指向**Monitor对象的指针**
 
-![image-20210628154124702](image/2-synchronized/20210628154124.png)
+![image-20210628154124702](./image/2-synchronized/20210628154124.png)
 
 ## 结构
 
@@ -42,7 +42,7 @@
 - 当线程执行完，将EntryList中的线程全部唤醒，继续抢锁
 - waitSet:存放wait状态的线程集合
 
-![](image/2-synchronized/20210619104359.png)
+![](./image/2-synchronized/20210619104359.png)
 
 # 加锁过程
 下面，进入加锁的过程以及优化过程
@@ -77,7 +77,7 @@
 
 > 简单的流程图
 
-![1650767229091](2-synchronized/1650767229091.png)
+![1650767229091](./2-synchronized/1650767229091.png)
 
 
 

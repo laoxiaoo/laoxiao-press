@@ -39,7 +39,7 @@ public class Tuple2<A, B> {
 
 1. Java的泛型是使用擦除实现的 ，这是因为Java在编译期间，所有的泛型信息都会被擦掉
 
-2. 因此， List<String> 和 List<Integer> 在运行时实际上是相同的类型。它们都被擦除成原生类型 List 
+2. 因此， `List<String>` 和 `List<Integer>` 在运行时实际上是相同的类型。它们都被擦除成原生类型 `List`
 
 3. 无论两个T无论是啥类型，他们的class都是相同的
 
@@ -56,7 +56,7 @@ public static void main(String[] args) {
 
 1. 泛型类型参数会擦除到它的第一个边界
 
-2. 如下，编译器是无法通过编译的，因为 obj.f(); obj是不知道什么类型的，只有改成Manipulator2<T extends HasF>，才能通过编译，因为泛型会擦除到边界（HasF），T 擦除到了 HasF 
+2. 如下，编译器是无法通过编译的，因为 `obj.f()` 时 `obj` 的具体类型未知；只有改成 `Manipulator2<T extends HasF>` 才能通过编译，因为泛型会擦除到边界（`HasF`），`T` 会擦除到 `HasF`
 
 ```java
 class Manipulator<T> {

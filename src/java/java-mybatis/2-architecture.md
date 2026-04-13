@@ -2,17 +2,17 @@
 
 # 总体架构
 
-![](image/2022618105503.jpeg)
+![](./image/2022618105503.jpeg)
 
 
 
 # 执行顺序
 
-![image-20230817195158024](image/2-architecture/image-20230817195158024.png)
+![image-20230817195158024](./image/2-architecture/image-20230817195158024.png)
 
 # 层次结构
 
-![image-20220618110856530](image/2-architecture/image-20220618110856530.png)
+![image-20220618110856530](./image/2-architecture/image-20220618110856530.png)
 
 1. *SqlSession*：作为MyBatis工作的主要顶层API，表示和数据库交互的会话，完成必要数据库增删改查功能
 2. *Executor*：MyBatis执行器，是MyBatis 调度的核心，负责SQL语句的生成和查询缓存的维护
@@ -20,7 +20,7 @@
 4. *ParameterHandler*：负责对用户传递的参数转换成JDBC Statement 所需要的参数
 5. *ResultSetHandler*：负责将JDBC返回的ResultSet结果集对象转换成List类型的集合
 6. *TypeHandler*： 
-7. *MappedStatement*：MappedStatement维护了一条<select|update|delete|insert>节点的封装
+7. *MappedStatement*：MappedStatement维护了一条 `<select|update|delete|insert>` 节点的封装
 8. *SqlSource*：负责根据用户传递的parameterObject，动态地生成SQL语句，将信息封装到BoundSql对象中，并返回
 9. *BoundSql*：表示动态生成的SQL语句以及相应的参数信息
 10. *Configuration*：MyBatis所有的配置信息都维持在Configuration对象之中
@@ -140,9 +140,9 @@ public void test1() throws Exception{
 
 ## 配置方式
 
-1、通过 <package> 配置 多个 typeHandler所在的包路径，通过扫包的方式批量设置
+1、通过 `<package>` 配置多个 typeHandler 所在的包路径，通过扫包的方式批量设置
 
-2、通过 <typeHandler> 标签，一个一个进行 typeHandler 配置
+2、通过 `<typeHandler>` 标签，一个一个进行 typeHandler 配置
 
 ## TypeHandlerRegistry
 
@@ -189,7 +189,7 @@ private <T> void register(Type javaType, TypeHandler<? extends T> typeHandler) {
 
 两个数据源通过工厂类创建
 
-![image-20230907195649390](image/2-architecture/image-20230907195649390.png)
+![image-20230907195649390](./image/2-architecture/image-20230907195649390.png)
 
 以后有新的数据源，只需实现mybatis提供的<b id="blue">DataSourceFactory</b>接口即可
 
@@ -218,7 +218,7 @@ MyBatis 会先从MapperRegistry中获取XXXMapper接口的代理对象这里就�
 
 ## MapperProxy
 
-一个包装类,本身不做任何事情,它最主要的作用就是维系着<Method,MapperMethod>集合,这样mapper接口就知道即将执行的是哪种SQL语句了,然后委托给Sqlsession进行查询了
+一个包装类，本身不做任何事情，它最主要的作用就是维系着 `<Method, MapperMethod>` 集合，这样 mapper 接口就知道即将执行的是哪种 SQL 语句了，然后委托给 SqlSession 进行查询了
 
 ## SqlCommand#resolveMappedStatement
 
