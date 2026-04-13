@@ -11,13 +11,13 @@ export default sidebar({
       collapsible: true,
       children: [
         {
-          text: "Api",
+          text: "Api使用",
           prefix: "api/",
           collapsible: true,
           children: ["1-base", "2-thread", "3-bigDecimal", "4-map", "6-stream"],
         },
         {
-          text: "Concurrent",
+          text: "并发编程",
           prefix: "concurrent/",
           collapsible: true,
           children: [
@@ -40,7 +40,6 @@ export default sidebar({
       collapsible: true,
       children: [
         "",
-        "/java/java-mybatis/sidebar.html",
         "4-plugin",
         "MybatisPlus",
         "5-cache",
