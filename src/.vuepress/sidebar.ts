@@ -1,27 +1,26 @@
 import { sidebar } from "vuepress-theme-hope";
 
 export default sidebar({
+  "/ai/": "structure",
+  "/demo/": "structure", 
+  "/guide/": "structure",
   "/": [
     "",
     "portfolio",
     {
       text: "案例",
       icon: "laptop-code",
-      prefix: "demo/",
-      link: "demo/",
-      children: "structure",
+      link: "/demo/",
     },
     {
       text: "AI",
-      icon: "cpu",
-      prefix: "ai/",
-      children: "structure",
+      icon: "cpu", 
+      link: "/ai/",
     },
     {
       text: "文档",
       icon: "book",
-      prefix: "guide/",
-      children: "structure",
+      link: "/guide/",
     },
     {
       text: "幻灯片",
