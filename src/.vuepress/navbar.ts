@@ -7,13 +7,7 @@ export default navbar([
   {
     text: "AI",
     icon: "cpu",
-    children: [
-      {
-        text: "AI编程",
-        icon: "code",
-        link: "/ai/code/",
-      },
-    ],
+    link: "/ai/",
   },
   {
     text: "指南",
