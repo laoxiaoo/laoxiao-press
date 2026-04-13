@@ -4,6 +4,7 @@ export default sidebar({
   "/ai/": "structure",
   "/demo/": "structure", 
   "/guide/": "structure",
+  "/java/": "structure",
   "/": [
     "",
     "portfolio",

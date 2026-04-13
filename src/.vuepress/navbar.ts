@@ -33,4 +33,9 @@ export default navbar([
     icon: "book",
     link: "https://theme-hope.vuejs.press/zh/",
   },
+  {
+    text: "Java",
+    icon: "coffee",
+    link: "/java/",
+  },
 ]);
