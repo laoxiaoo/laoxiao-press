@@ -11,7 +11,7 @@ export default navbar([
       {
         text: "AI编程",
         icon: "code",
-        link: "/ai/code/README.md",
+        link: "/ai/code/",
       },
     ],
   },
