@@ -1,6 +1,6 @@
 import { sidebar } from 'vuepress-theme-hope';
 
-export const javaSidebarConfig = sidebar({
+export const javaSidebarConfig = {
     '/java/': [
         {
             text: 'Java 基础',
@@ -91,4 +91,4 @@ export const javaSidebarConfig = sidebar({
             ],
         },
     ],
-});
+};

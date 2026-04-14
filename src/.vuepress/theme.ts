@@ -2,7 +2,7 @@ import { hopeTheme } from "vuepress-theme-hope";
 
 import navbar from "./navbar.js";
 import sidebar from "./sidebar.js";
-import {javaSidebarConfig} from "./sidebar/java_sidebar.js";
+import {baseSidebarConfig} from "./sidebar/base_sidebar.js";
 
 export default hopeTheme({
   hostname: "https://vuepress-theme-hope-docs-demo.netlify.app",
@@ -22,7 +22,7 @@ export default hopeTheme({
   navbar,
 
   // 侧边栏
-  sidebar: javaSidebarConfig,
+  sidebar: baseSidebarConfig,
   // 页脚
   footer: "默认页脚",
   displayFooter: true,
