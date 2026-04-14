@@ -1,3 +1,7 @@
+---
+title: Java8
+---
+
 # Java8新特性
 
 ## getOrDefault
