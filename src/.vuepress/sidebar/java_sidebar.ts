@@ -32,6 +32,12 @@ export const javaSidebarConfig = sidebar({
             ],
         },
         {
+            text: "JVM",
+            prefix: "java-jvm/",
+            collapsible: true,
+            children: ["1-jvm"],
+        },
+        {
             text: "Mybatis",
             prefix: "java-mybatis/",
             collapsible: true,
