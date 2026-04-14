@@ -1,4 +1,7 @@
-# 
+---
+title: juc锁
+---
+
 # AQS
 
 全称是AbstractQueuedSynchronizer，是阻塞式锁(如synchronized 就是阻塞的锁，cas不是)和相关的同步器工具的框架

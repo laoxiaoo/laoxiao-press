@@ -1,4 +1,7 @@
-# 
+---
+title: synchronized
+---
+
 # Java对象头
 
 一般我们new的对象，都由对象头和对象的成员属性组成

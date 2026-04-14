@@ -1,4 +1,8 @@
 
+---
+title: juc集合
+---
+
 # 集合类
 
 ```mermaid
