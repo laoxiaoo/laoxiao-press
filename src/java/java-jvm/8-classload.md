@@ -1,3 +1,7 @@
+---
+title: 类加载器
+---
+
 #
 
 相关代码；[stu-java-base/stu-java8/src/main/java/com/xiao/jvm/classLoader · 小肖/learning - 码云 - 开源中国](https://gitee.com/xiaojihao/learning/tree/master/stu-java-base/stu-java8/src/main/java/com/xiao/jvm/classLoader)
@@ -15,7 +19,7 @@
 为类的静态变量赋予正确的初始值。
 
 
-- 初始化阶段的重要工作是执行类的初始化方法:<clinit>()方法。
+- 初始化阶段的重要工作是执行类的初始化方法:`<clinit>`()方法。
 
 由代码可见，初始化阶段会执行clinit方法,有静态代码块，或者静态变量，就会有clinit（静态常量不会产生）
 
@@ -43,7 +47,7 @@ static {
 
 *注意*：
 
-1. 在加载一个类之前，虚拟机总是会试图加载该类的父类，因此父类的<clinit>总是在子类<clinit>之前被调用。也就是说，父类的static块优先级高于子类。
+1. 在加载一个类之前，虚拟机总是会试图加载该类的父类，因此父类的`<clinit>`总是在子类`<clinit>`之前被调用。也就是说，父类的static块优先级高于子类。
 口诀:由父及子，静态先行。
 2. 引用类型的不管是final还是不是，是static就是在clinit中赋值
 
