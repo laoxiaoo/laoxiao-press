@@ -74,5 +74,21 @@ export const javaSidebarConfig = sidebar({
                 'MybatisPlus',
             ],
         },
+        {
+            text: 'Spring',
+            prefix: 'spring/',
+            collapsible: true,
+            children: [
+                '1-base',
+                '2-ioc',
+                '3-springbean',
+                '4-event',
+                '5-environment',
+                '6-model',
+                '7-util',
+                '8-servlet',
+                '10-beanPost',
+            ],
+        },
     ],
 });
