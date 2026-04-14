@@ -5,7 +5,6 @@ title: Jackson
 
 
 # Jackson
-
 # 概述
 
 1. jackson是java技术栈内最好的JSON解析工具(官网所言)

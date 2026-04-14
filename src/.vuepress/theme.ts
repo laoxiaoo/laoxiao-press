@@ -107,6 +107,9 @@ export default hopeTheme({
     // 在启用之前安装 mermaid
     // mermaid: true,
 
+    // markmap 插件
+    markmap: true,
+
     // playground: {
     //   presets: ["ts", "vue"],
     // },

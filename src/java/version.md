@@ -1,6 +1,5 @@
 ---
 title: 版本差异
-
 ---
 # Java 8-N的版本的相关点
 
@@ -9,7 +8,7 @@ title: 版本差异
 
 
 
-# JAVA8
+## JAVA8
 
 ## Idea环境使用
 
@@ -93,11 +92,11 @@ Consumer<String> consumer2 = s-> System.out.println(s);
 
 > java四大函数式接口
 
-- 消费型接口 Consumer<T>     void accept(T t)
+- 消费型接口 `Consumer<T>`     void accept(T t)
   - 消费型接口，只有入参没有返回值
-- 供给型接口 Supplier<T>     T get()
-- 函数型接口 Function<T,R>   R apply(T t)
-- 断定型接口 Predicate<T>    boolean test(T t)
+- 供给型接口 `Supplier<T>`     T get()
+- 函数型接口 `Function<T, R>`   `R apply(T t)`
+- 断定型接口 `Predicate<T>`    boolean test(T t)
   - 如果存在某个值，返回true
 
 
@@ -279,7 +278,7 @@ Stream<Integer> integerStream = Stream.of(1, 2, 3, 4);
 
 ## Stream穿件无限流
 
-- static <T> Stream<T> generate(Supplier<T> s)
+- `static <T> Stream<T> generate(Supplier<T> s)`
 - 可以利用泛型的方法来创建无限流(示例来源：on java8)
 
 ```java
@@ -541,7 +540,7 @@ List<Employee> employees = EmployeeData.getEmployees();
 
 ## Optional类
 
-Optional<T> 类(java.util.Optional) 是一个容器类，它可以保存类型T的值，代表这个值存在。或者仅仅保存null，表示这个值不存在
+`Optional<T>` 类(java.util.Optional) 是一个容器类，它可以保存类型T的值，代表这个值存在。或者仅仅保存null，表示这个值不存在
 
 目的：为了避免空指针异常的存在
 
@@ -560,7 +559,7 @@ Optional<String> optStr2 = Optional.ofNullable(null);
 ### 判断Optional容器中是否包含对象
 
 - boolean isPresent() : 判断是否包含对象
-- void ifPresent(Consumer<? super T> consumer) ：如果有值，就执行Consumer接口的实现代码，并且该值会作为参数传给它。
+- `void ifPresent(Consumer<? super T> consumer)` ：如果有值，就执行Consumer接口的实现代码，并且该值会作为参数传给它。
 
 ```java
 public static void printName(Student student)
@@ -572,18 +571,16 @@ public static void printName(Student student)
 
 ### 内容处理
 
-- ##### filter
-
-- ##### map
-
-- ##### flatMap
+- `filter`
+- `map`
+- `flatMap`
 
 ### 获取Optional容器的对象
 
-- T get(): 如果调用对象包含值，返回该值，否则抛异常
-- T orElse(T other) ：如果有值则将其返回，否则返回指定的other对象。
-- T orElseGet(Supplier<? extends T> other) ：如果有值则将其返回，否则返回由Supplier接口实现提供的对象。
-- T orElseThrow(Supplier<? extends X> exceptionSupplier) ：如果有值则将其返回，否则抛出由Supplier接口实现提供的异常。
+- `T get()`: 如果调用对象包含值，返回该值，否则抛异常
+- `T orElse(T other)` ：如果有值则将其返回，否则返回指定的other对象。
+- `T orElseGet(Supplier<? extends T> other)` ：如果有值则将其返回，否则返回由Supplier接口实现提供的对象。
+- `T orElseThrow(Supplier<? extends X> exceptionSupplier)` ：如果有值则将其返回，否则抛出由Supplier接口实现提供的异常。
 
 ## 日期操作
 
@@ -628,7 +625,7 @@ System.out.println("两个日期之间的天数差为: " + daysBetween);
 ### 使用场景
 
 ```markmap
-# 
+# CompletableFuture
 ## 创建异步任务
 ## 简单异步回调
 ## 多任务组合
@@ -700,7 +697,7 @@ Thread.sleep(1000);
 
 
 
-# JAVA9
+## JAVA9
 
 ## 新特性
 
@@ -781,7 +778,7 @@ hello word! java9
 
 Java 9 之前的工程，他们都是单体模式，一个简单的 hello world，都需要引入 `rt.jar`，导致这个简单的 hello world 的 jar 变得很大， Java 9 引入模块后，它只需要引入它所依赖的即可
 
-![image-20240801164548436](image/version/image-20240801164548436.png)
+![image-20240801164548436](./image/version/image-20240801164548436.png)
 
 
 
@@ -942,7 +939,7 @@ public static void main(String[] args) throws IOException, InterruptedException 
 
 
 
-# JAVA11
+## JAVA11
 
 ## 局部变量的类型推断
 
@@ -972,7 +969,7 @@ log.info("FileApi {}", b);
 
 
 
-# JAVA12
+## JAVA12
 
 > <b id="gray">mismatch</b>用于比较两个文件的内容。它返回两个文件内容第一次不匹配的位置的索引。
 
@@ -983,7 +980,7 @@ long b = Files.mismatch(path1, path2);
 System.out.println(b);
 ```
 
-# Java13
+## Java13
 
 ## 文本块
 
@@ -1000,7 +997,7 @@ public static void main(String[] args) {
 }
 ```
 
-# Java14
+## Java14
 
 ##  Instanceof增强
 
@@ -1013,7 +1010,7 @@ if (a instanceof String str) {
 }
 ```
 
-# JAVA15
+## JAVA15
 
 ZGC 是Java 11引入的新的垃圾收集器，经过了多个实验阶段，在 Java 15 终于成为正式特性。ZGC 是一种可伸缩的低延迟垃圾收集器，旨在为大型应用程序和系统提供高性能的内存管理，同时保持极低的延迟。其主要为了满足如下目标进行设计：
 
@@ -1033,7 +1030,7 @@ ZGC 是Java 11引入的新的垃圾收集器，经过了多个实验阶段，在
 
 通过 JVM 参数 `-XX:+UseZGC` 启用 ZGC。
 
-# Java17 
+## Java17 
 
 因为我们引入了`sealed` `class`或`interfaces`，这些class或者interfaces只允许被指定的类或者interface进行扩展和实现。即其他类不允许继承或者实现它
 

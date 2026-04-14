@@ -1,1 +1,13 @@
 // place your custom styles here
+
+#gray {
+  display: inline-block;
+  background-color: #444;
+  color: #fff;
+  padding: 1px 12px; /* 更扁 */
+  border-radius: 4px;
+  font-family: Consolas, Monaco, monospace;
+  font-size: 0.95em;
+  margin: 0 4px;
+  line-height: 1.1;
+}
