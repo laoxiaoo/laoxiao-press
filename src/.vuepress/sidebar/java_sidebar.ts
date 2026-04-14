@@ -47,6 +47,17 @@ export const javaSidebarConfig = sidebar({
                 '9-optimize',
             ],
         },
+        {
+            text: 'IO',
+            prefix: 'java-io/',
+            collapsible: true,
+            children: [
+                '1-tcp',
+                '1-nio',
+                '2-netty-base',
+                '3-netty-advanc',
+            ],
+        },
         "version",
         "mockito",
         {
