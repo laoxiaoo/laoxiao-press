@@ -11,7 +11,7 @@ export const javaSidebarConfig = sidebar({
                     text: 'Api使用',
                     prefix: 'api/',
                     collapsible: true,
-                    children: ['1-base', '2-thread', '3-bigDecimal', '4-map', '6-stream'],
+                    children: ['1-base', '2-thread', '3-bigDecimal', '4-map', '6-stream', '7-jackson'],
                 },
                 {
                     text: '并发编程',
@@ -47,6 +47,7 @@ export const javaSidebarConfig = sidebar({
                 '9-optimize',
             ],
         },
+        "version",
         {
             text: 'Mybatis',
             prefix: 'java-mybatis/',
