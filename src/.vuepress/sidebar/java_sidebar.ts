@@ -36,7 +36,6 @@ export const javaSidebarConfig = sidebar({
             prefix: "java-mybatis/",
             collapsible: true,
             children: [
-                "",
                 "4-plugin",
                 "MybatisPlus",
                 "5-cache",
