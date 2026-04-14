@@ -48,6 +48,7 @@ export const javaSidebarConfig = sidebar({
             ],
         },
         "version",
+        "mockito",
         {
             text: 'Mybatis',
             prefix: 'java-mybatis/',
