@@ -1,3 +1,7 @@
+---
+title: 分布式应用
+---
+
 # 分布式事务
 
 # 理论
@@ -39,7 +43,7 @@ Consistency）。它的核心思想是即使无法做到强一致性（CAP 就�
 1. 准备阶段：协调者询问是否可以执行
 2. 提交阶段：协调者发起提交事务通知
 
-![image-20221001225407704](image/6-distributed_transaction/image-20221001225407704.png)
+![image-20221001225407704](./image/6-distributed_transaction/image-20221001225407704.png)
 
 2PC 方案实现起来简单，实际项目中使用比较少，主要因为以下问题
 
@@ -51,7 +55,7 @@ Consistency）。它的核心思想是即使无法做到强一致性（CAP 就�
 *三阶段提交升级点：*
 
 3PC 三阶段提交，是两阶段提交的改进版本，与两阶段提交不同的是，引入超时机制。同时在协调者和参与者中都引入超时机制。三阶段提交将两阶段的准备阶段拆分为 2 个阶段，插入了一个preCommit 阶段，解决了原先在两阶段提交中，参与者在准备之后，由于协调者或参与者发生崩溃或错误，而导致参与者无法知晓处于长时间等待的问题。如果在指定的时间内协调者没有收到参与者的消息则默认失败。
-![image-20221002170247350](image/6-distributed_transaction/image-20221002170247350.png)
+![image-20221002170247350](./image/6-distributed_transaction/image-20221002170247350.png)
 
 1. 阶段1：canCommit
    协调者向参与者发送 commit 请求，参与者如果可以提交就返回 yes 响应，否则返回 no 响应。
@@ -67,7 +71,7 @@ XA是由X/Open组织提出的分布式事务的规范（比如：JDBC，就是�
 
 如下：RM其实可以看出我们平时操作的资源（如多个数据库 ）
 
-![image-20250913141839144](image/6-distributed_transaction/image-20250913141839144.png)
+![image-20250913141839144](./image/6-distributed_transaction/image-20250913141839144.png)
 
 # TCC模式（最终一致性）
 
@@ -97,11 +101,11 @@ Saga是一种补偿模式，它定义了两种补偿策略：
 
 - 发生失败进行重试，适用于必须要成功的场景。
 
-![image-20250915234701919](image/6-distributed_transaction/image-20250915234701919.png)
+![image-20250915234701919](./image/6-distributed_transaction/image-20250915234701919.png)
 
 - 发生错误后撤销掉之前所有成功的子事务，使得整个 Saga 的执行结果撤销。
 
-![image-20250915234738274](image/6-distributed_transaction/image-20250915234738274.png)
+![image-20250915234738274](./image/6-distributed_transaction/image-20250915234738274.png)
 
 # Seata框架
 

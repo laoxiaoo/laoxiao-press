@@ -1,24 +1,39 @@
 ---
 home: true
 portfolio: true
-title: 档案主页
+title: 奇奇怪怪的杂记
 icon: house
 welcome: 👋 你好，我是
-name: 江户川柯南
-avatar: https://theme-hope-assets.vuejs.press/hero/conan.png
+name: 湘A老萧
+# avatar: ./image/20230304140618.png
 
 titles:
-  - 天才少年侦探
-  - 小兰的青梅竹马
-  - 黑衣组织的最大对手
+  - 奇奇怪怪的程序员
+#   - 小兰的青梅竹马
+#   - 黑衣组织的最大对手
 
 footer: false
 ---
 
-## 介绍
+<!-- ## 介绍
 
 这是一个档案主页的案例。
 
 要使用此布局，你应该在页面 Frontmatter 中设置 `home: true` 和 `portfolio: true`。
 
-相关配置文档请见 [档案主页](https://theme-hope.vuejs.press/zh/guide/blog/home.html#档案类型主页)。
+相关配置文档请见 [档案主页](https://theme-hope.vuejs.press/zh/guide/blog/home.html#档案类型主页)。 -->
+
+# 写在前面
+
+
+随记：
+
+读《设计模式之美》之后，我觉得最后一句话说的很有感触，记录下来：
+
+时光不语，静等花开。从默默无闻到崭露头角，一般只需一瞬间，看似一瞬间，可能要等十几年。年轻人一定不要心急，不要焦虑，要耐得住性
+子。当你的能力撑不起你的野心的时候，当你感到怀才不遇的时候，当你迷茫找不着方向的时候，你只需要努力、坚持，再努力、再坚持，慢慢
+地，你就会变得越来越强大，方向就会变得越来越清晰，机会就会越来越青睐你。
+
+
+
+ps:转载请注明出处

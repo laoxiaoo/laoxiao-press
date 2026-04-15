@@ -24,7 +24,7 @@ export default hopeTheme({
   // 侧边栏
   sidebar: baseSidebarConfig,
   // 页脚
-  footer: "默认页脚",
+  // footer: "默认页脚",
   displayFooter: true,
 
   // 加密配置

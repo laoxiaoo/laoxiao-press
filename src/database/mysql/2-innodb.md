@@ -1,3 +1,7 @@
+---
+title: Innodb
+---
+
 # 
 
 从MySQL 5.5版本开始默认使用InnoDB作为引擎，它擅长处理事务，具有自动崩溃恢复的特性
@@ -11,7 +15,7 @@
 
 
 
-![image-20250723224129433](image/2-innodb/image-20250723224129433.png)
+![](./image/2-innodb/image-20250723224129433.png)
 
 ## Buffer pool
 
@@ -77,7 +81,7 @@ innodb_flush_log_at_trx_commit参数控制日志刷新行为，默认为1
 
 一个ibd数据文件-->Segment（段）-->Extent（区）-->Page（页）-->Row（行）
 
-![image-20221116201804736](image/image-20221116201804736.png)
+![image-20221116201804736](./image/image-20221116201804736.png)
 
 <b id="gray">tablespace</b>
 
