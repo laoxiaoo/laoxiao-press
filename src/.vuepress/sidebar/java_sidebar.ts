@@ -90,7 +90,8 @@ export const javaSidebarConfig = {
                 '10-beanPost',
             ],
         },
-    {
+        'SpringBoot',
+        {
             text: 'SpringCloud',
             prefix: 'springcloud/',
             collapsible: true,
