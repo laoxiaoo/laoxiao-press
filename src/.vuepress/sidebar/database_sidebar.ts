@@ -30,5 +30,22 @@ export const databaseSidebarConfig = {
                 '7-problem',
             ],
         },
+        {
+            text: 'Redis',
+            prefix: 'redis/',
+            collapsible: true,
+            children: [
+                '1-base',
+                '2-redis-datastructure',
+                '3-redis-sample',
+                '4-persistence',
+                '5-replication',
+                '6-sentinel',
+                '7-cluster',
+                '8-api',
+                '9-transation',
+            ],
+        },
+
     ],
 }
