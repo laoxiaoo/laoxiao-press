@@ -90,5 +90,20 @@ export const javaSidebarConfig = {
                 '10-beanPost',
             ],
         },
+    {
+            text: 'SpringCloud',
+            prefix: 'springcloud/',
+            collapsible: true,
+            children: [
+                '0-base',
+                '1-register-Center',
+                '2-load-balance',
+                '3-restful',
+                '4-gateway',
+                '4-distributed-transaction',
+                '5-trafficFault-tolerant',
+                '6-full-link-log',
+            ],
+        },
     ],
 };

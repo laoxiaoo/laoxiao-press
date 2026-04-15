@@ -1,6 +1,8 @@
 
 
-#
+---
+title: 分布式链路日志
+---
 
 # 问题
 
@@ -23,7 +25,7 @@
 
 ![](./image/20200324211701.jpg)
 
-如图所示，我们可以看到几个名词：<b id="gray">trace id</b> <b id="gray">spanceid</b>
+如图所示，我们可以看到几个名词：`trace id` `spanceid`
 
 span：调用链路的来源，标识一次请求
 
@@ -58,13 +60,13 @@ logging:
 
 3. 访问请求，能够在日志中看到如下的日志信息
 
-![image-20250709214331841](image/6-full-link-log/image-20250709214331841.png)
+![](./image/6-full-link-log/image-20250709214331841.png)
 
 # Zipkin
 
 从上图中可以看到，Sleuth的链路日志是在每个服务显示的，且显示的很不明显，所以需要将日志信息聚合上传到Zipkin的服务端，然后聚合的查阅日志以及调用的链路信息
 
-Zipkin 包括<b id="gray">Zipkin Server</b>和<b id="gray">Zipkin Client</b>两部分，<b id="gray">Zipkin Server</b>是⼀个单独的服 务
+Zipkin 包括`Zipkin Server`和`Zipkin Client`两部分，`Zipkin Server`是⼀个单独的服 务
 
 ## Zipkin Server
 
@@ -122,7 +124,7 @@ public class ZipkinServerApplication {
 
 4. 访问地址[Zipkin - Index](http://localhost:9411/zipkin/)，进入到zipkin的访问页面
 
-![image-20250709222653542](image/6-full-link-log/image-20250709222653542.png)
+![](./image/6-full-link-log/image-20250709222653542.png)
 
 ## Zipkin Client
 
@@ -148,10 +150,10 @@ spring:
 
 3. 触发日志后，可以访问地址，查看到对应的日志请求链路数据
 
-![image-20250709230837175](image/6-full-link-log/image-20250709230837175.png)
+![](./image/6-full-link-log/image-20250709230837175.png)
 
 4. 点进去某个请求，可以看到每个服务请求时间
 
-![image-20250709230908943](image/6-full-link-log/image-20250709230908943.png)
+![](./image/6-full-link-log/image-20250709230908943.png)
 
-![image-20250709231017752](image/6-full-link-log/image-20250709231017752.png)
+![](./image/6-full-link-log/image-20250709231017752.png)

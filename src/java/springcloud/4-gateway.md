@@ -1,3 +1,7 @@
+---
+title: 网关
+---
+
 # zuul路由网关
 
 # Gateway新一代网关
@@ -8,7 +12,7 @@
 2. 通过nginx负载均衡到网关上
 3. 网关做：鉴权、 流量控制、熔断、路径重写、⽇志监控等操作
 
-![image-20250701230138909](image/4-gateway/image-20250701230138909.png)
+![](./image/4-gateway/image-20250701230138909.png)
 
 ## 三大概念
 
@@ -51,7 +55,7 @@
 - 增加配置文件，gateway也是要注册进入注册中心的
   - id:路由的ID，没有固定规则但要求唯一，简易配合服务名
   - uri:  匹配后提供服务的路由地址
-  - predicates: 断言，比如如下，路径有 <b id="gray">consumer</b>的进入到8004端口
+  - predicates: 断言，比如如下，路径有 `consumer`的进入到8004端口
 - routes：下可以配置多个路由配置
 
 ```yaml
@@ -102,7 +106,7 @@ public class GatewayApplication {
 
 访问，转发到8004的服务
 
-![image-20250703215407849](image/4-gateway/image-20250703215407849.png)
+![](./image/4-gateway/image-20250703215407849.png)
 
 # 断言
 
@@ -110,9 +114,9 @@ public class GatewayApplication {
 
 通过地址断言到对应的服务
 
-<b id="blue">lb</b>:表示轮训算法
+`lb`:表示轮训算法
 
-<b id="blue">renren-fast</b>：某个服务名称
+`renren-fast`：某个服务名称
 
 ```yaml
 routes:

@@ -1,4 +1,6 @@
-# 
+---
+title: 基础概念
+---
 
 # 什么是微服务
 
@@ -53,7 +55,7 @@ API网关：
 
 # SpringCloud是什么
 
-SpringCloud=分布式微服务架构下的一站式解决方案，是各个微服务架构落地技术的<b id="red">集合体</b>，俗称微服务全家桶
+SpringCloud=分布式微服务架构下的一站式解决方案，是各个微服务架构落地技术的`集合体`，俗称微服务全家桶
 
 利用SpringBoot的开发便利性简化了微服务架构的开发（自动装配）
 
@@ -92,4 +94,4 @@ NoSql==>   （redis,Mogodb等非关系型数据库）遵循的原则是：CAP原
 
 # Spring Cloud 组件
 
-![image-20250611214320321](image/README/image-20250611214320321.png)
+![](./image/README/image-20250611214320321.png)

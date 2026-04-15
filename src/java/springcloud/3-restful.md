@@ -1,8 +1,12 @@
-# 
+---
+title: 服务调用
+---
+
+#
 
 # 前言
 
-在前面负载均衡的时候， [ribbon的初步使用](/java/springcloud/2-load-balance?id=ribbon的初步使用)，我们看到了，调用远程服务可以通过<b id="gray"> restTemplate.getForObject("http://SERVER-8001/test/getPort", String.class)</b>这种，拼接的方式进行调用，这样的方式不够灵活
+在前面负载均衡的时候， [ribbon的初步使用](/java/springcloud/2-load-balance?id=ribbon的初步使用)，我们看到了，调用远程服务可以通过`restTemplate.getForObject("http://SERVER-8001/test/getPort", String.class)`这种，拼接的方式进行调用，这样的方式不够灵活
 
 # Feign
 
@@ -126,7 +130,7 @@ public class FeignConfig {
 ```
 
 2.  配置log⽇志级别为debug
-   1. 这里表示<b id="blue">com.xiao.client.*</b>所有的feign客户端，请求响应都会答应日志
+   1. 这里表示`com.xiao.client.*`所有的feign客户端，请求响应都会答应日志
    2. 如果想指定某个类，可以如此配置 com.xiao.config.FeignConfig：debug
 
 ```yaml
@@ -275,7 +279,7 @@ logging:
 
 ## 代理类注入过程
 
-1. 从<b id="blue">EnableFeignClients</b>注解进入，可以看到import了一个<b id="gray">FeignClientsRegistrar</b>类
+1. 从`EnableFeignClients`注解进入，可以看到import了一个`FeignClientsRegistrar`类
    1. FeignClientsRegistrar实现了ImportBeanDefinitionRegistrar，可以自定义注入bean
 
 ```java
@@ -289,9 +293,9 @@ public void registerBeanDefinitions(AnnotationMetadata metadata,
 }
 ```
 
-2. 进入到<b id="blue">registerFeignClients</b>-><b id="blue">registerFeignClient</b>方法，可以看到，每个标记的FeignClient的接口，都有会有一个<b id="blue">FeignClientFactoryBean</b>来生产代理类
+2. 进入到`registerFeignClients`->`registerFeignClient`方法，可以看到，每个标记的FeignClient的接口，都有会有一个`FeignClientFactoryBean`来生产代理类
 
-![image-20250701221908667](image/3-restful/image-20250701221908667.png)
+![](./image/3-restful/image-20250701221908667.png)
 
 3. FeignClientFactoryBean是一个工厂Bean,由getObject返回一个代理对象，这个代理对象就是标识了feign的接口的代理对象
 
@@ -305,7 +309,7 @@ public Object getObject() throws Exception {
 3. 通过getTarget方法最终进入到feign.ReflectiveFeign#newInstance方法
    1. 通过下图，生成代理对象
 
-![image-20250701224427383](image/3-restful/image-20250701224427383.png)
+![](./image/3-restful/image-20250701224427383.png)
 
 4. 其中InvocationHandler handler = factory.create(target, methodToHandler);返回代理指向类FeignInvocationHandler
 

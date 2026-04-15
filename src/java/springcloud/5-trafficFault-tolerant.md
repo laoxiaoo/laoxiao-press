@@ -1,13 +1,15 @@
 
-#
+---
+title: 流量容错
+---
 
 # 扇入扇出
 
 如果有微服务：A->B->C
 
-<b id="blue">扇入</b>：上游对B的调用，扇⼊⼤，说明该模块复⽤性好
+`扇入`：上游对B的调用，扇⼊⼤，说明该模块复⽤性好
 
-<b id="blue">扇出</b>：B对下游的调用，扇出⼤，说明业务逻辑复杂
+`扇出`：B对下游的调用，扇出⼤，说明业务逻辑复杂
 
 # 雪崩
 
@@ -43,7 +45,7 @@
 ## 熔断配置
 
 1. 服务调用A->B,将B的接口设置延迟时间为10000s
-2. 在服务A启动Hystrix（引入jar包，然后Application启动类开启注解<b id="blue">@EnableCircuitBreaker</b>）
+2. 在服务A启动Hystrix（引入jar包，然后Application启动类开启注解`@EnableCircuitBreaker`）
 
 ```xml
 <dependency>
@@ -61,10 +63,10 @@
 public class EurekaClientConsumer
 ```
 
-3. 使用<b id="blue">@HystrixCommand</b>注解，进行熔断配置
-   1. 使用<b id="blue">commandProperties</b>进行熔断的细节配置
-   2. 每一个配置都是一个<b id="blue">@HystrixProperty</b>
-   3. 这些属性值可以通过<b id="blue">HystrixCommandProperties</b>进行查阅
+3. 使用`@HystrixCommand`注解，进行熔断配置
+   1. 使用`commandProperties`进行熔断的细节配置
+   2. 每一个配置都是一个`@HystrixProperty`
+   3. 这些属性值可以通过`HystrixCommandProperties`进行查阅
    4. 比如下面的配置，就是进行超时时间的配置
 
 ```java
@@ -79,7 +81,7 @@ public String getPortTimeOut() {
 
 4. 上面配置了超时配置，如果超过时间，则访问B服务失败，抛出异常
 
-![image-20250624220126526](image/5-trafficFault-tolerant/image-20250624220126526.png)
+![](./image/5-trafficFault-tolerant/image-20250624220126526.png)
 
 ## 服务降级
 
@@ -87,7 +89,7 @@ public String getPortTimeOut() {
    1. B的服务超时
    2. B因为一些问题，抛出了异常
 2. 很多时候，我们不想B服务的异常对外，那么这个时候，我们可以进行服务降级兜底处理
-3. 添加<b id="gray">fallbackMethod</b>兜底方法，当 <b id="blue">SERVER-8001</b>服务抛出异常或者超时时候，访问兜底方法
+3. 添加`fallbackMethod`兜底方法，当 `SERVER-8001`服务抛出异常或者超时时候，访问兜底方法
 
 ```java
 @HystrixCommand(commandProperties = {
@@ -109,15 +111,15 @@ public String getPortTimeOutFallback() {
 
 如果不进⾏任何设置，所有熔断⽅法使⽤⼀个Hystrix线程池（默认10个线程），那么这样的话会导致问题，这个问题并不是扇出链路微服务不可⽤导致的，⽽是我们的线程机制导致的，如果⽅法A的请求把10个线程都⽤了，⽅法2请求处理的时候压根都没法去访问B，因为没有线程可⽤，并不是B服务不可⽤。
 
-![image-20250624232231343](image/5-trafficFault-tolerant/image-20250624232231343.png)
+![](./image/5-trafficFault-tolerant/image-20250624232231343.png)
 
 ## 解决方案
 
 为了避免问题服务请求过多导致正常服务⽆法访问， Hystrix 不是采⽤增加线程数，⽽是单独的为每⼀个控制⽅法创建⼀个线程池的⽅式，这种模式叫做“舱壁模式"，也是线程隔离的⼿段
 
-<b id="blue">threadPoolKey</b>：线程池的唯一标识
+`threadPoolKey`：线程池的唯一标识
 
-<b id="blue">threadPoolProperties</b>：线程池的属性
+`threadPoolProperties`：线程池的属性
 
 ```java
 @HystrixCommand(threadPoolKey = "timeOutA", threadPoolProperties = {
@@ -141,7 +143,7 @@ public String B() {
 
 ## 跳闸和自我修复
 
-![image-20250625213706321](image/5-trafficFault-tolerant/image-20250625213706321.png)
+![](./image/5-trafficFault-tolerant/image-20250625213706321.png)
 
 
 
@@ -456,7 +458,7 @@ start;
 ```
 
 2. 配置sentinel的相关配置
-   1. <b id="gray">port</b>：启动该端口http服务， sentinel会通过这个端口将配置信息发送到这个服务
+   1. `port`：启动该端口http服务， sentinel会通过这个端口将配置信息发送到这个服务
 
 
 ```yaml

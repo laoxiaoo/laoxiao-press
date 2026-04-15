@@ -1,3 +1,7 @@
+---
+title: 注册中心
+---
+
 ##
 
 # 问题
@@ -25,15 +29,15 @@ EurekaClient是一个Java客户端，用于简化Eureka Server的交互，客户
 
 ## 三大角色
 
-<b id="blue">Eureka Server</b> 提供服务注册和发现
+`Eureka Server` 提供服务注册和发现
 
-<b id="blue">Service Provider</b>服务提供方将自身服务注册到Eureka；并且通过心跳机制进行续约
+`Service Provider`服务提供方将自身服务注册到Eureka；并且通过心跳机制进行续约
 
-<b id="blue">Service Consumer</b>服务消费方定期的向serve拉取服务注册列表
+`Service Consumer`服务消费方定期的向serve拉取服务注册列表
 
 > EurekaClient通过poll模式获取注册数据
 
-<b id="blue">EurekaClient心跳</b>
+`EurekaClient心跳`
 
 通过注册中心进行访问没如果server多个心跳周期没有收到某个节点(默认30S续约一次)，则server会将其从服务注册表移除（默认90秒）
 
@@ -209,8 +213,8 @@ eureka:
 
 2. 新建另外两个eureka server的项目 : 修改yml配置
    1. 修改hostname,可以自定义名称，用于区分Eureka的不同实例,但是hostname需要在主机的host文件中，能指向对应的地址
-   2. defaultZone，需要指向其他集群的地址，用<b id="blue">,</b>隔开
-   3. 集群模式下，<b id="blue">register-with-eureka</b>和<b id="blue">fetch-registry</b>都可以改成<b id="blue">true</b>
+   2. defaultZone，需要指向其他集群的地址，用`,`隔开
+   3. 集群模式下，`register-with-eureka`和`fetch-registry`都可以改成`true`
 
 
 ```yaml
@@ -246,7 +250,7 @@ eureka:
 
 从代码上我们可以如此获取，不过一般都不会这么用，因为我们拿到注册服务后，一般还会做负载算法等操作
 
-<b id="blue">SERVER-8001</b>：就是注册服务的application的name
+`SERVER-8001`：就是注册服务的application的name
 
 ```java
 @Autowired
@@ -264,7 +268,7 @@ public void testEureka() {
 
 如下，能看到相关的注册信息
 
-![image-20250614154056895](image/2-register-Center/image-20250614154056895.png)
+![](./image/2-register-Center/image-20250614154056895.png)
 
 ## 失效剔除
 
@@ -364,21 +368,21 @@ public class NacosMain9001 {
 
 5. 进入nacos服务中心，能看到服务管理-服务列表下有这个服务
 
-![image-20250712171137716](image/1-register-Center/image-20250712171137716.png)
+![](./image/1-register-Center/image-20250712171137716.png)
 
 ## 注册详情页面
 
 1. 分组：默认分组是 DEFAULT_GROUP ，属于nacos数据模型的一个概念，主要用于配置中心，作为注册中心这里保持默认即可
 2. 元数据：类似与eureka的元数据
 
-![image-20250712171729451](image/1-register-Center/image-20250712171729451.png)
+![](./image/1-register-Center/image-20250712171729451.png)
 
 
 
 3. 权重：权重越大，承载的流量也就越大，编辑可以修改权重值
 4. 下线：当前服务对于客户端不可见
 
-![image-20250712172008069](image/1-register-Center/image-20250712172008069.png)
+![](./image/1-register-Center/image-20250712172008069.png)
 
 ## 阈值的作用
 
@@ -407,7 +411,7 @@ public class NacosMain9001 {
 
 ### cluster-name
 
-配置<b id="gray">spring.cloud.nacos.discovery.cluster-name</b>，是 **Spring Cloud Alibaba Nacos 客户端**的一个配置属性，**它的核心作用是实现服务发现的“同集群优先调用”策略，用于服务治理**
+配置`spring.cloud.nacos.discovery.cluster-name`，是 **Spring Cloud Alibaba Nacos 客户端**的一个配置属性，**它的核心作用是实现服务发现的“同集群优先调用”策略，用于服务治理**
 
 比如如下配置
 
@@ -586,8 +590,8 @@ db.password=123456
 
 ## 集群配置
 
-1. 因为测试是同一个服务部署多个服务，所以，先从<b id="gray">application.properties</b>更改端口（也可以向后面那样，修改脚本来）
-2. 并且修改<b id="gray">nacos.inetutils.ip-address</b>配置，绑定ip（防止一个服务器多个ip）
+1. 因为测试是同一个服务部署多个服务，所以，先从`application.properties`更改端口（也可以向后面那样，修改脚本来）
+2. 并且修改`nacos.inetutils.ip-address`配置，绑定ip（防止一个服务器多个ip）
 
 3. 配置集群文件
 

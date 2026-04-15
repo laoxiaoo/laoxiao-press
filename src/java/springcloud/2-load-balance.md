@@ -1,4 +1,8 @@
-# 
+---
+title: 负载均衡
+---
+
+#
 
 # 负载均衡的分类
 
@@ -13,12 +17,12 @@
 
 # Ribbon的初步使用
 
-1. 检查项目里是否引入了<b id="gray">spring-cloud-starter-ribbon</b>包
+1. 检查项目里是否引入了`spring-cloud-starter-ribbon`包
 
-![image-20250615113358531](image/3-load-balance/image-20250615113358531.png)
+![](./image/3-load-balance/image-20250615113358531.png)
 
 1. 初始化RestTemplate的Bean
-   1. <b id="blue">LoadBalanced</b>是关键，意味着restTemplate能够从服务中心获取到对应的服务来进行负载均衡的选择
+   1. `LoadBalanced`是关键，意味着restTemplate能够从服务中心获取到对应的服务来进行负载均衡的选择
 
 ```java
 @Bean
@@ -29,7 +33,7 @@ public RestTemplate getRestTemplate() {
 ```
 
 2. 服务调用
-   1. <b id="blue">SERVER-8001</b>就是服务提供者的服务注册名（spring.application.name），通过它能从注册中心获取到对应的服务
+   1. `SERVER-8001`就是服务提供者的服务注册名（spring.application.name），通过它能从注册中心获取到对应的服务
 
 ```java
 @Autowired
@@ -41,7 +45,7 @@ public String getPort() {
 }
 ```
 
-3. 可以在<b id="blue">SERVER-8001</b>服务端，提供一个接口，这个接口返回当前服务的端口号，发布两个服务
+3. 可以在`SERVER-8001`服务端，提供一个接口，这个接口返回当前服务的端口号，发布两个服务
    1. 访问客户端的接口，获取到的端口变化来观察轮训机制
 
 # Ribbon负载均衡
@@ -75,7 +79,7 @@ Ribbon在工作时分成两步
 
 # Ribbon原理图
 
-![image-20250615160410944](image/3-load-balance/image-20250615160410944.png)
+![](./image/3-load-balance/image-20250615160410944.png)
 
 
 # Ribbon的类解析
@@ -83,12 +87,12 @@ Ribbon在工作时分成两步
 1. 他的父接口为com.netflix.loadbalancer.IRule，通过choose方法返回对应的服务
 2. 默认为ZoneAvoidanceRule，断点在choose方法中，可以看到，对应的默认算法
 
-![image-20250615152357754](image/3-load-balance/image-20250615152357754.png)
+![](./image/3-load-balance/image-20250615152357754.png)
 
 # 更换负载均衡
 
 1. 如果想更换负载均衡策略，则可以将服务的全限定名配置在Client的配置文件中
-   1. <b id="blue">server-8001</b>表示服务端的appname,表示指定当前服务的负载均衡策略
+   1. `server-8001`表示服务端的appname,表示指定当前服务的负载均衡策略
 
 ```yml
 server-8001:
@@ -141,13 +145,13 @@ rest接口第N次请求数%服务器总集群数量=实际调用服务器下标
 
 1. SpringCloud,通过SpringBoot spi的方式，注入了RibbonAutoConfiguration
 
-![image-20250616222348986](image/3-load-balance/image-20250616222348986.png)
+![](./image/3-load-balance/image-20250616222348986.png)
 
-2. 从<b id="blue">RibbonAutoConfiguration</b>，我们看到了LoadBalancerAutoConfiguration，通过find,我们找到，他在common中进行加载
+2. 从`RibbonAutoConfiguration`，我们看到了LoadBalancerAutoConfiguration，通过find,我们找到，他在common中进行加载
 
-![image-20250616223524769](image/3-load-balance/image-20250616223524769.png)
+![](./image/3-load-balance/image-20250616223524769.png)
 
-![image-20250616223503137](image/3-load-balance/image-20250616223503137.png)
+![](./image/3-load-balance/image-20250616223503137.png)
 
 3. LoadBalancerAutoConfiguration中，配合LoadBalanced注解，将所有的标识了LoadBalanced的RestTemplate Bean注入到容器中
    1. LoadBalanced注解是一个@Qualifier类型，[具体可以了解](/java/spring/2-ioc?id=限定注入)
@@ -162,13 +166,13 @@ public class LoadBalancerAutoConfiguration {
 
 4. 从下面代码可以看出，@LoadBalanced添加了注解的RestTemplate对象会被添加⼀个拦截器 LoadBalancerInterceptor，该拦截器就是后续 拦截请求进⾏负载处理的
 
-![image-20250617211644164](image/3-load-balance/image-20250617211644164.png)
+![](./image/3-load-balance/image-20250617211644164.png)
 
 # 拦截器链执行过程
 
 1. 通过断点，我们可以看到，restTemplate.getForObject调用最终会执行到拦截器方法LoadBalancerInterceptor#intercept
 
-![image-20250617230936462](image/3-load-balance/image-20250617230936462.png)
+![](./image/3-load-balance/image-20250617230936462.png)
 
 2. 从上面可以看到，最终的负载均衡是在这里面执行的
 
@@ -176,11 +180,11 @@ public class LoadBalancerAutoConfiguration {
 return this.loadBalancer.execute(serviceName, requestFactory.createRequest(request, body, execution));
 ```
 
-3. 并且，loadBalancer是<b id="blue">LoadBalancerClient</b>类型，他的实现类是<b id="blue">RibbonLoadBalancerClient</b>
+3. 并且，loadBalancer是`LoadBalancerClient`类型，他的实现类是`RibbonLoadBalancerClient`
 
 # 负载均衡的执行
 
-1. 探究<b id="blue">RibbonLoadBalancerClient</b>，我们发现他是在最初我们看到的<b id="blue">RibbonAutoConfiguration</b>中进行注入的
+1. 探究`RibbonLoadBalancerClient`，我们发现他是在最初我们看到的`RibbonAutoConfiguration`中进行注入的
 
 ```java
 @Bean
@@ -190,14 +194,14 @@ public LoadBalancerClient loadBalancerClient() {
 }
 ```
 
-2. <b id="blue">SpringClientFactory</b>从源码上看，实现了<b id="blue">NamedContextFactory</b>，它是一个**子容器**
+2. `SpringClientFactory`从源码上看，实现了`NamedContextFactory`，它是一个**子容器**
 
    1. 在调用SpringClientFactory#getClient或者SpringClientFactory#getLoadBalancer时候，进行子容器的懒加载
    2. 子容器的创建是懒加载的过程，通过appname为Key，然后为每个服务名创建一个子容器，如图，有一个SERVER-8001的服务，那么客户端中就有一个这个子容器，子容器对应了各个负载均衡器
 
-   ![image-20250618215714580](image/3-load-balance/image-20250618215714580.png)
+   ![](./image/3-load-balance/image-20250618215714580.png)
 
-   1. 加载了配置项<b id="blue">RibbonClientConfiguration</b>
+   1. 加载了配置项`RibbonClientConfiguration`
 
 ```java
 public class SpringClientFactory extends NamedContextFactory<RibbonClientSpecification> {
@@ -209,19 +213,19 @@ public class SpringClientFactory extends NamedContextFactory<RibbonClientSpecifi
     }
 ```
 
-3. <b id="blue">RibbonClientConfiguration</b>是个配置项，加载了很多Bean，这些Bean都由子容器进行管理
+3. `RibbonClientConfiguration`是个配置项，加载了很多Bean，这些Bean都由子容器进行管理
 
-4.  <b id="blue">RibbonClientConfiguration</b>默认加载了<b id="blue">ZoneAwareLoadBalancer</b>Bean，这个Bean就是我们默认的负载均衡的Bean
+4.  `RibbonClientConfiguration`默认加载了`ZoneAwareLoadBalancer`Bean，这个Bean就是我们默认的负载均衡的Bean
 
-![image-20250618214456203](image/3-load-balance/image-20250618214456203.png)
+![](./image/3-load-balance/image-20250618214456203.png)
 
-5. 回到<b id="blue">RibbonLoadBalancerClient#execute</b>方法，第一行代码获取的实际上就是默认的负载均衡器
+5. 回到`RibbonLoadBalancerClient#execute`方法，第一行代码获取的实际上就是默认的负载均衡器
 
-![image-20250618215153380](image/3-load-balance/image-20250618215153380.png)
+![](./image/3-load-balance/image-20250618215153380.png)
 
-6. 通过<b id="blue">getServer</b>选择一个通过<b id="blue">ILoadBalancer</b>选择一个Server
+6. 通过`getServer`选择一个通过`ILoadBalancer`选择一个Server
 
-![image-20250618220238124](image/3-load-balance/image-20250618220238124.png)
+![](./image/3-load-balance/image-20250618220238124.png)
 
 7. 最终在AbstractServerPredicate#incrementAndGetModulo方法中，进行server的选择
 
