@@ -16,5 +16,19 @@ export const databaseSidebarConfig = {
                 '7-distributed_transaction',
             ],
         },
+        {
+            text: 'Elasticsearch',
+            prefix: 'es/',
+            collapsible: true,
+            children: [
+                '1-base',
+                '2-describe',
+                '3-curd',
+                '4-mapping',
+                '5-java-api',
+                '6-aggs',
+                '7-problem',
+            ],
+        },
     ],
 }
