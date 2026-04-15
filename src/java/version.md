@@ -778,7 +778,7 @@ hello word! java9
 
 Java 9 之前的工程，他们都是单体模式，一个简单的 hello world，都需要引入 `rt.jar`，导致这个简单的 hello world 的 jar 变得很大， Java 9 引入模块后，它只需要引入它所依赖的即可
 
-![image-20240801164548436](./image/version/image-20240801164548436.png)
+![image-20240801164548436](./image/image-20240801164548436.png)
 
 
 

@@ -107,7 +107,7 @@ Redis的字符串是一个由字节组成的序列，跟java里面的ArrayList�
 
 Redis 中没有直接使用 C 语言的字符串，而是构建了一套自己的抽象类型，名为简单动态字符串，简称 *SDS*
 
-![](./image/2-redis-datastructure/image-20230410111618376.png)
+![](./image/image-20230410111618376.png)
 
 *len*: 记录 buf 数组中已经使用字节的数量，也就是 SDS 类型所保存的字符串的长度。
 *free*: 记录了 buf 数组中未使用的字节数量
