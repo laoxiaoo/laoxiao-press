@@ -8,3 +8,5 @@ sidebar: false
 
 [mq](mq/activeMq/activeMq.md)
 [git](git.md)
+[nginx](nginx.md)
+[network](network.md)
