@@ -12,7 +12,7 @@ description: VuePress侧边栏配置和markdown文件处理 - 自动生成侧边
 1. **侧边栏配置生成**: 根据用户输入的 ts 文件路径和目标路径，生成侧边栏配置
 2. **标题提取与添加**: 从用户输入的 markdown 链接中提取标题，添加到对应的 md 文件开头
 3. **HTML 标签修复**: 将未闭合的 HTML 标签转为 markdown 代码格式
-4. **图片路径修复**: 将 `![](image/xxx)` 改为 `![](image/xxx)`
+4. **图片路径修复**: 将 `![](./image/xxx)` 改为 `![](./image/xxx)`
 
 ## 使用流程
 
@@ -90,7 +90,7 @@ description: VuePress侧边栏配置和markdown文件处理 - 自动生成侧边
 
 **修复前:**
 ```markdown
-![](image/xxx.png)
+![](./image/xxx.png)
 ```
 
 **修复后:**

@@ -46,6 +46,7 @@ export const databaseSidebarConfig = {
                 '9-transation',
             ],
         },
+        'zookeeper/README.md',
 
     ],
 }
