@@ -142,7 +142,7 @@ mysql> show variables like '%log_bin%';
 
 在my.conf配置
 
-```conf
+```ini
 [mysqld]
 server-id=123454
 log_bin=mysql_bin

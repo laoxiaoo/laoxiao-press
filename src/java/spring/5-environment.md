@@ -37,7 +37,7 @@ public static void main(String[] args) {
 
 1. 建立配置文件testBean.properties
 
-```pro
+```javascript 
 testBean.realName=真实的张三
 ```
 
@@ -205,7 +205,7 @@ public class TestYaml {
 
 1. 在classpath下建立testyaml.properties文件
 
-```properties
+```javascript perties
 testyaml.name=zhangsan
 testyaml.name2="zhang \t san"
 testyaml.name3='zhang \t san'
@@ -250,7 +250,7 @@ public class Config {
 
 # 配置文件的占位符
 
-```properties
+```javascript perties
 #当占位符不存在，使用:后面的补充值
 testyaml.name=${testyaml.test:补充值}zhangsan
 #使用随机值

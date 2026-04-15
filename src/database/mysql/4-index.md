@@ -29,13 +29,13 @@ MYISAM
 
 - 查看一个表的索引
 
-```mysql
+```sql
 show index from t_user;
 ```
 
 - 建表后创建
 
-```mysql
+```sql
 create index idx_st_sname on students(sname); ##创建普通索引
 ##或者alter方式
 Alter table ... add INDEX 索引名称(字段, 字段);
@@ -46,7 +46,7 @@ create unique index idx_st_sid on students(sid); ##创建唯一索引
 
 - 建表前创建
 
-```mysql
+```sql
 create table t_user (id int primary key, name varchar(50), key(name));
 
 create table t_user (id int primary key, name varchar(50), unique(name));

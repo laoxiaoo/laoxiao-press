@@ -121,13 +121,13 @@ mysql> alter user user() identified by '123456';
 
 ## 展示数据库
 
-```mysql
+```sql
 mysql> show databases;
 ```
 
 ## 使用数据库
 
-```mysql
+```sql
 mysql> use test;
 
 ```
@@ -142,7 +142,7 @@ mysql> use test;
 
 1、全局
 
-```mysql
+```sql
 #存储两部分信息
 #1、创建的用户信息
 #2、全局的权限
@@ -168,7 +168,7 @@ mysql> show grants for root@'localhost';
 
 ## 创建用户
 
-```mysql
+```sql
 #创建一个localhost来源的用户
 mysql> create user test@localhost identified by '123456';
 #查询用户只有连接的权限
@@ -184,7 +184,7 @@ mysql> show grants for test@localhost;
 
 ## 授权、回收
 
-```mysql
+```sql
 #将所有权限的所有数据库、所有表的权限授予test@localhost
 mysql> grant all privileges on *.* to test@localhost;
 #回收权限
@@ -199,7 +199,7 @@ mysql> grant select(id) on course.students to test@localhost;
 
 答：两个用户的并集权限
 
-```mysql
+```sql
 mysql> create user test@'192.168.%' identified by '123456';
 Query OK, 0 rows affected (0.08 sec)
 
@@ -214,7 +214,7 @@ Query OK, 0 rows affected (0.02 sec)
 新权限命令才能同步到系统内存中，刷新权限命令包括：flush
 privileges/mysqladmin flush-privileges/mysqladmin reload
 
-```mysql
+```sql
 mysql> set password=password('mysql');
 Query OK, 0 rows affected, 1 warning (0.01 sec)
 mysql> flush privileges;
@@ -225,7 +225,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 ## mysql 用户资源
 
-```mysql
+```sql
 ##通过执行create user/alter user设置/修改用户的资源限制
 mysql> CREATE USER 'francis'@'localhost' IDENTIFIED BY 'frank'
 -> WITH MAX_QUERIES_PER_HOUR 20
@@ -239,7 +239,7 @@ mysql> ALTER USER 'francis'@'localhost' WITH MAX_CONNECTIONS_PER_HOUR 0;
 
 ## mysql连接
 
-```mysql
+```sql
 #mysql 查询连接密码加密方式，默认的加密方式是caching_sha2_password，navicat无法连接
 mysql> select user, host, plugin from mysql.user;
 +------------------+------------+-----------------------+
@@ -287,7 +287,7 @@ Account is locked
 
 ## 创建表
 
-```mysql
+```sql
 CREATE TABLE `students_copy` (
 • `sid` int(11) DEFAULT NULL,
 • `sname` varchar(20) DEFAULT NULL,
@@ -302,7 +302,7 @@ CREATE TABLE `students_copy` (
 
 ## 复制表结构
 
-```mysql
+```sql
 mysql> create table stu_copy like stu;
 mysql> desc stu_copy;
 +-------+-------------+------+-----+---------+-------+
@@ -316,7 +316,7 @@ mysql> desc stu_copy;
 
 ## 也可以查询创建表的sql语句
 
-```mysql
+```sql
 mysql> show create table stu;
 +-------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | Table | Create Table                                                                                                                                                             |
@@ -333,7 +333,7 @@ mysql> show create table stu;
 
 ## 将表结构复制，并将数据也复制
 
-```mysql
+```sql
 mysql> create table stu_cope1 as select * from stu;
 mysql> select * from stu_cope1;
 +----+--------+
@@ -360,13 +360,13 @@ ON DUPLICATE KEY UPDATE c=c+1;
 
 修改students.sname的数据 
 
-```mysql
+```sql
 update students,students2
 set students.sname=students2.sname,students.gender=students2.gender
 where students.sid=students2.sid;
 ```
 
-```mysql
+```sql
 ##执行失败不会停止但数据不会修改
 Update ignore students set sid=1 where sid=2; 
 
@@ -401,7 +401,7 @@ from   ->  where -> select -> group by -> having
 
 先将a和b做笛卡尔积，再做where筛选
 
-```mysql
+```sql
 select * from a, b
 #或者
 select * from a inner join a.id=b.id
@@ -411,7 +411,7 @@ select * from a inner join a.id=b.id
 
 My.cnf配置文件中添加secure_file_priv=/tmp/后重启再执行 
 
-```mysql
+```sql
  SELECT sid,sname,sex INTO OUTFILE '/tmp/students.txt'
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
@@ -420,7 +420,7 @@ FROM students;
 
 ## 表重命名
 
-```mysql
+```sql
 RENAME TABLE old_table TO tmp_table
 ```
 
@@ -430,13 +430,13 @@ truncate table语句用来删除/截断表里的所有数据 , (不带条件的�
 
 和delete删除所有表数据在逻辑上含义相同，但性能更快 
 
-```mysql
+```sql
 truncate table students_test;
 ```
 
 ## 修改表
 
-```mysql
+```sql
  ##新增字段
  Alter table … add [column_name]
  ## 新增索引
@@ -469,7 +469,7 @@ ALTER TABLE 表名 CHANGE 旧字段名 新字段名 字段类型(长度);
 
   如果expr是null，则返回1，否则返回0  
 
-```mysql
+```sql
 mysql> select ISNULL(NULL);
 +--------------+
 | ISNULL(NULL) |
@@ -488,31 +488,31 @@ mysql> select ISNULL(1);
 
 -  当value等于compare_value时，则返回result，否则返回else里的result，如果没有else子句则返回null  
 
-  ```mysql
+  ```sql
   CASE value WHEN [compare_value] THEN result [WHEN][compare_value] THEN result ...] [ELSE result] END  
   ```
 
 -  当第一个condition满足时，则返回result，否则返回else里的result，如果没有else子句时则返回null  
 
-  ```mysql
+  ```sql
   CASE WHEN [condition] THEN result [WHEN [condition] THEN result ...] [ELSE result] END
   ```
 
 -   当expr1为1/true时，则返回expr2，否则返回expr3  
 
-  ```mysql
+  ```sql
   IF(expr1,expr2,expr3)
   ```
 
 -   当expr1为非null时，则返回expr1，否则返回expr2  
 
-  ```mysql
+  ```sql
   IFNULL(expr1,expr2)
   ```
 
 -   当expr1等于expr2时，则返回null，否则返回expr1  
 
-  ```mysql
+  ```sql
   NULLIF(expr1,expr2)
   ```
 
@@ -520,30 +520,30 @@ mysql> select ISNULL(1);
 
 -   返回字符串的字符长度  
 
-  ```mysql
+  ```sql
   CHAR_LENGTH(str)
   ```
 
 -   返回括号里所有参数字符串连接在一起，当其中有参数NULL时则返回NULL  
 
-  ```mysql
+  ```sql
   CONCAT(str1,str2,...)
   ```
 
 -   返回以第一个参数为分隔符的连接后的一个字符串，当有参数为NULL时则null被忽略  
 
-  ```mysql
+  ```sql
   CONCAT_WS(separator,str1,str2,...)
   ```
 
 -   将str中从pos位置开始后的len个字符替换成newstr字符串  
 
-  ```mysql
+  ```sql
   INSERT(str,pos,len,newstr)
   ```
 
 -   返回str字符串中第一个出现substr字符串的位置  
 
-  ```mysql
+  ```sql
   INSTR(str,substr)
   ```
