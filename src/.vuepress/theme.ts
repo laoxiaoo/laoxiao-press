@@ -37,6 +37,9 @@ export default hopeTheme({
     },
   },
 
+
+  //底部编辑此页去掉
+  editLink: false,
   // 多语言配置
   // metaLocales: {
   //   editLink: "在 GitHub 上编辑此页",
