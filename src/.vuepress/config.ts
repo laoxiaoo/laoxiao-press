@@ -10,7 +10,6 @@ export default defineUserConfig({
   description: "老萧的笔记",
 
   theme,
-
   // 和 PWA 一起启用
   // shouldPrefetch: false,
 });

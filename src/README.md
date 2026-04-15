@@ -2,27 +2,27 @@
 home: true
 icon: house
 title: 项目主页
-heroImage: https://theme-hope-assets.vuejs.press/logo.svg
-bgImage: https://theme-hope-assets.vuejs.press/bg/6-light.svg
-bgImageDark: https://theme-hope-assets.vuejs.press/bg/6-dark.svg
+heroImage: ./image/20260415.jpg
+# bgImage: https://theme-hope-assets.vuejs.press/bg/6-light.svg
+# bgImageDark: https://theme-hope-assets.vuejs.press/bg/6-dark.svg
 bgImageStyle:
   background-attachment: fixed
 heroText: 湘A老萧
 tagline: 老萧的笔记
 actions:
-  - text: 使用指南
+  - text: Java
     icon: lightbulb
-    link: ./demo/
+    link: ./java/
     type: primary
 
-  - text: 文档
-    link: ./guide/
+  - text: 比较杂
+    link: ./other/
 
 highlights:
   - header: 
-    image: /assets/image/box.svg
-    bgImage: https://theme-hope-assets.vuejs.press/bg/3-light.svg
-    bgImageDark: https://theme-hope-assets.vuejs.press/bg/3-dark.svg
+    # image: /assets/image/box.svg
+    # bgImage: https://theme-hope-assets.vuejs.press/bg/3-light.svg
+    # bgImageDark: https://theme-hope-assets.vuejs.press/bg/3-dark.svg
     highlights:
       - title: 希望能用我的笔记帮助到一部分人，同时也帮助到我自己
       - title: 读《设计模式之美》之后，我觉得最后一句话说的很有感触，记录下来：

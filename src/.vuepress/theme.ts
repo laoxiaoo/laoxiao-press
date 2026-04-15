@@ -12,9 +12,9 @@ export default hopeTheme({
     //url: "https://mister-hope.com",
   },
 
-  logo: "https://theme-hope-assets.vuejs.press/logo.svg",
+  logo: "./image/logo.png",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  // repo: "vuepress-theme-hope/vuepress-theme-hope",
 
   docsDir: "src",
 
@@ -37,6 +37,9 @@ export default hopeTheme({
     },
   },
 
+  // 仓库显示
+  repoDisplay: false,
+  repo: 'laoxiao-press/laoxiao-press',
 
   //底部编辑此页去掉
   editLink: false,
