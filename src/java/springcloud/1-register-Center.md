@@ -577,7 +577,7 @@ ${prefix}-${spring.profile.active}.${file-extension}
 
 - 配置mysql库
 
-```mysql
+```sql
 ###############在此处新增配置
 spring.datasource.platform=mysql
 # 实例的各数
@@ -607,7 +607,7 @@ db.password=123456
 192.168.94.131
 ```
 
-```conf
+```ini
 # cluster.conf文件中的配置
 192.168.94.131:3333
 192.168.94.131:4444
@@ -692,7 +692,7 @@ echo "nacos is starting，you can check the ${BASE_DIR}/logs/start.out"
 
 - 配置nginx
 
-```conf
+```ini
  upstream cluster {
           server 192.168.94.131:3333;
           server 192.168.94.131:4444;

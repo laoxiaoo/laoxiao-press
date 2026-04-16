@@ -815,7 +815,7 @@ Consumer consumer = new DefaultConsumer(channel) {
 
 > spring boot 配置
 
-```properties
+```ini
 spring.rabbitmq.listener.simple.prefetch: 1 # 设置队列中最大的未确认的消息数量
 ```
 

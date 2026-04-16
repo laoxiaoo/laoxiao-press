@@ -243,7 +243,7 @@ Transaction ID xid ：全局事务id
 
 ​	修改自定义事务组名称:fsp_tx_group
 
-```conf
+```ini
 service {
   #transaction service group mapping
   vgroup_mapping.my_test_tx_group = "fsp_tx_group"
@@ -256,7 +256,7 @@ service {
 
 修改事务日志存储模式为db
 
-```conf
+```ini
 store {
   ## store mode: file、db
   mode = "db"
@@ -287,7 +287,7 @@ store {
 
 - 修改**registry.conf**文件
 
-```conf
+```ini
 registry {
   # file 、nacos 、eureka、redis、zk、consul、etcd3、sofa
   type = "file"
@@ -425,7 +425,7 @@ mybatis:
 
 file.conf需要修改
 
-```conf
+```ini
 service {
    #修改自定义事务组名称
   vgroup_mapping.fsp_tx_group = "default"

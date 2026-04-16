@@ -3,6 +3,7 @@ import { navbar } from "vuepress-theme-hope";
 export default navbar([
   "/",
   // "/portfolio",
+  //icon 默认加载的是Material Symbols； 设置示例：https://icon-sets.iconify.design/material-symbols/page-42.html
   {
     text: "数据库",
     icon: "database",
@@ -10,7 +11,7 @@ export default navbar([
   },
   {
     text: "AI",
-    icon: "cpu",
+    icon: "material-symbols:book-6-outline",
     link: "/ai/",
   },
   // {
@@ -39,7 +40,7 @@ export default navbar([
   // },
   {
     text: "Java",
-    icon: "coffee",
+    icon: "code",
     link: "/java/",
   },
   {

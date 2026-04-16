@@ -1448,7 +1448,7 @@ public class DataSourceAutoConfiguration {
 
 默认只需要将文件命名为：
 
-```properties
+```ini
 schema-*.sql、data-*.sql
 默认规则：schema.sql，schema-all.sql；
 可以使用   

@@ -151,7 +151,7 @@ Follower的复制多多少少会有延迟的
 [root@node2 kafka_2.12-3.0.0]# vim config/server.properties
 ```
 
-```properties
+```ini
 # 配置好brokerid，集群中，每台id都不一样
 broker.id=0
 ## 这里说是日志，其实就是kafka的数据
@@ -510,7 +510,7 @@ while (true) {
 
 ### spring boot配置
 
-```properties
+```ini
 # kafka配置
 spring:
   kafka:

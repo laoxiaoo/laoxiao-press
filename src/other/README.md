@@ -10,3 +10,4 @@ sidebar: false
 [git](git.md)
 [nginx](nginx.md)
 [network](network.md)
+[vscode 食用](vscode.md)

@@ -5,5 +5,6 @@ export const otherSidebarConfig = {
         'git', 
         'nginx',
         'network',
+        'vscode',
     ],
 }

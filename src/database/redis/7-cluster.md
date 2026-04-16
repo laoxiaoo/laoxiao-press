@@ -34,7 +34,7 @@ redis官网建议：集群最少3主3从节点
 
 ## 配置文件
 
-```properties
+```ini
 #是否开启集群模式，默认no
 cluster-enabled yes
 #(会自动生成一个文件，保存节点信息)

@@ -91,7 +91,7 @@ nginx配置文件nginx.conf分三个模块
 
 从配置文件开始，到配置文件events
 
-```conf
+```ini
 #处理并发的数量
 worker_processes  1;
 
@@ -99,7 +99,7 @@ worker_processes  1;
 
 ## events
 
-```conf
+```ini
 events {
 	## 支持的最大连接数
     worker_connections  1024;
@@ -119,7 +119,7 @@ events {
 
 server name 为虚拟服务器的识别路径。因此不同的域名会通过请求头中的HOST字段，匹配到特定的server块，转发到对应的应用服务器中去。
 
-```conf
+```ini
  server {
      listen       80;
      server_name  192.168.1.134;
@@ -136,7 +136,7 @@ location / {
 
 在nginx上配置,访问www.zkh.com，发现进入的是nginx提示界面
 
-```conf
+```ini
 server {
     listen  80;
     server_name www.zkh.com;
@@ -158,7 +158,7 @@ server {
 
 =  要求字符串严格匹配
 
-```conf
+```ini
 server {
     listen  9001;
     server_name 192.168.1.134;
@@ -238,7 +238,7 @@ make
 
 - 在server外配置负载均衡的地址
 
-```conf
+```ini
 upstream myserver {
         server 192.168.1.134:8080;
         server 192.168.1.134:8001;
@@ -250,7 +250,7 @@ upstream myserver {
 
 - 在server内指向对应配置
 
-```conf
+```ini
 server {
         listen       80;
         server_name  192.168.1.134;
@@ -266,7 +266,7 @@ server {
 
 ## 指定权重
 
-```conf
+```ini
 upstream myserver {
         server 192.168.1.134:8080 weight=4;
         server 192.168.1.134:8001 weight=1;
@@ -277,7 +277,7 @@ upstream myserver {
 
 每个请求按照ip来分配，可以解决session问题
 
-```conf
+```ini
 upstream myserver {
         ip_hash;
         server 192.168.1.134:8080;
@@ -289,7 +289,7 @@ upstream myserver {
 
 当访问<http://192.168.1.134/image/>时，会列出下面的目录，**这是autoindex on;功能**
 
-```conf
+```ini
  location /www/ {
             root /data/;
         }
@@ -321,7 +321,7 @@ keepalived.conf
 
 - vrrp_instance
 
-```conf
+```ini
 vrrp_instance VI_1 {
     state MASTER #主从，从：BACKUP
     interface eth0 # 网卡
@@ -342,7 +342,7 @@ vrrp_instance VI_1 {
 
 - 整体配置文件
 
-```conf
+```ini
 ! Configuration File for keepalived
 
 global_defs {
@@ -429,13 +429,13 @@ nginx提供两种限流的方式
 
 1. 创建限流缓存空间  
 
-```properties
+```ini
 #限流设置：每秒钟只允许两个
 limit_req_zone $binary_remote_addr zone=contentRateLimit:10m rate=2r/s;
 ```
 
 2. 在访问地址中配置指定的配置
-```properties
+```ini
 #使用限流配置
 limit_req zone=contentRateLimit;
 ```
@@ -445,13 +445,13 @@ limit_req zone=contentRateLimit;
 
 **nodelay**表示并发的处理
 
-```prop
+```ini
 limit_req zone=contentRateLimit burst=4 nodelay;
 ```
 
 > 控制并发量
 
-```properties
+```ini
 #表示限制根据用户的IP地址来显示，设置存储地址为的内存大小10M
 limit_conn_zone $binary_remote_addr zone=addr:10m; 
 #表示 同一个地址只允许连接2次
@@ -463,7 +463,7 @@ limit_conn addr 2;
 
    ​	下面的配置，表示，同一个ip并发3个，但是所有的总量限制5个 
 
-```properties
+```ini
 #IP限流
 limit_conn_zone $binary_remote_addr zone=perip:10m;
 #根据server的名字限流
@@ -473,7 +473,7 @@ limit_conn_zone $server_name zone=perserver:10m;
 
 location配置
 
-```properties
+```ini
 #单个客户端ip与服务器的连接数．
 limit_conn perip 3;
 

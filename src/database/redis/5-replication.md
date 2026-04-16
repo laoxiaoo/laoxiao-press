@@ -59,7 +59,7 @@ repl_backlog_histlen:0
 
 配置的访问密码必须一致
 
-```conf
+```ini
 # 修改端口
 port 6380
 # 修改进程文件

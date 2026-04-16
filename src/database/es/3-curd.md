@@ -1107,7 +1107,7 @@ one：要求我们这个写操作，只要有一个primary shard是active活跃�
 
 什么是`法定数shard`？
 
-```shel
+```shell
 int((primary shard + number_of_replicas) / 2) + 1
 
 ```
