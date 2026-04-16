@@ -94,9 +94,11 @@ public void subbingRealMethod() {
 }
 ```
 
-## spy
+## Spy
 
 spy也是对目标对象进行mock，但是只有设置了stub的方法才会mock，其他方法直接调用目标对象本身的方法
+
+比如说：一个类有N个方法， 在Spy场景中，如果不进行设置stub，则就会真实调用
 
 如：当<b id="blue">list.get(1)</b>没有stub时，则返回的是test1,如果stub了返回的是spy1
 
@@ -241,6 +243,31 @@ public void getUserInfo() {
 ## @MockBean
 
 等同于@mock替换spring的bean
+
+## 不调用某个方法
+
+> 如果在执行一些列代码中，我们想不调用某个方法，比如这个方法是调用第三方接口，我在测试的过程中不想调用
+>
+> 如下， 调用save方法，实际上不调用save
+
+```java
+doReturn(true)
+    .when(userRelationService)
+    .saveUserRelations(any(List.class), any(Integer.class));
+```
+
+## 对入参进行校验
+
+> 调用某个方法，不需要执行，只需要校验下入参是否满足要求
+
+```java
+verify(userRelationService).saveUserRelations(
+    argThat(relations -> {
+        // 自定义校验条件：列表中存在用户ID为U1002、关系类型为friend的记录
+        return relations.stream()
+            .anyMatch(rel -> "U1002".equals(rel.getUserId()) && "friend".equals(rel.getRelationType()));
+    }),
+```
 
 
 
