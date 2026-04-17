@@ -7,6 +7,7 @@ heroImage: ./image/20260415.jpg
 # bgImageDark: https://theme-hope-assets.vuejs.press/bg/6-dark.svg
 bgImageStyle:
   background-attachment: fixed
+  
 heroText: 湘A老萧
 tagline: 老萧的笔记
 actions:
@@ -17,12 +18,14 @@ actions:
 
   - text: 比较杂
     link: ./other/
+backImage: ./image/back.png
+bgImageDark: ./image/back.png  # 深色模式背景
 
 highlights:
   - header: 
     # image: /assets/image/box.svg
-    # bgImage: https://theme-hope-assets.vuejs.press/bg/3-light.svg
-    # bgImageDark: https://theme-hope-assets.vuejs.press/bg/3-dark.svg
+    # bgImage: ./image/back.png
+    # bgImageDark: ./image/back.png
     highlights:
       - title: 希望能用我的笔记帮助到一部分人，同时也帮助到我自己
       - title: 读《设计模式之美》之后，我觉得最后一句话说的很有感触，记录下来：

@@ -5,6 +5,15 @@ export const otherSidebarConfig = {
         'git', 
         'nginx',
         'network',
-        'vscode',
+       {
+        text: 'tool',
+        prefix: 'tool/',
+        collapsible: true,
+        children: [
+            'vscode',
+            'idea',
+            'clashverge',
+        ],
+       }
     ],
 }
