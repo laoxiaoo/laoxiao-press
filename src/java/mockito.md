@@ -113,6 +113,44 @@ Mockito.when(list.get(1)).thenReturn("spy1");
 System.out.println(list.get(1));
 ```
 
+## Mock方式调用真实方法
+
+我们知道，在Mock的方式下，被Mock的类是不会调用真实方法的，如果想要调用，可以使用<b id="blue">thenCallRealMethod</b>的方式
+
+```java
+when(thirdPreparePaymentService.receiveOaApproveData(any()))
+        .thenCallRealMethod();
+```
+
+
+
+## 不调用某个方法
+
+> 如果在执行一些列代码中，我们想不调用某个方法，比如这个方法是调用第三方接口，我在测试的过程中不想调用
+>
+> 如下， 调用save方法，实际上不调用save
+
+```java
+doReturn(true)
+    .when(userRelationService)
+    .saveUserRelations(any(List.class), any(Integer.class));
+```
+
+## 对入参进行校验
+
+> 调用某个方法，不需要执行，只需要校验下入参是否满足要求
+
+```java
+verify(userRelationService).saveUserRelations(
+    argThat(relations -> {
+        // 自定义校验条件：列表中存在用户ID为U1002、关系类型为friend的记录
+        return relations.stream()
+            .anyMatch(rel -> "U1002".equals(rel.getUserId()) && "friend".equals(rel.getRelationType()));
+    }),
+```
+
+
+
 # 注解方式
 
 ## @Mock
@@ -243,31 +281,6 @@ public void getUserInfo() {
 ## @MockBean
 
 等同于@mock替换spring的bean
-
-## 不调用某个方法
-
-> 如果在执行一些列代码中，我们想不调用某个方法，比如这个方法是调用第三方接口，我在测试的过程中不想调用
->
-> 如下， 调用save方法，实际上不调用save
-
-```java
-doReturn(true)
-    .when(userRelationService)
-    .saveUserRelations(any(List.class), any(Integer.class));
-```
-
-## 对入参进行校验
-
-> 调用某个方法，不需要执行，只需要校验下入参是否满足要求
-
-```java
-verify(userRelationService).saveUserRelations(
-    argThat(relations -> {
-        // 自定义校验条件：列表中存在用户ID为U1002、关系类型为friend的记录
-        return relations.stream()
-            .anyMatch(rel -> "U1002".equals(rel.getUserId()) && "friend".equals(rel.getRelationType()));
-    }),
-```
 
 
 
