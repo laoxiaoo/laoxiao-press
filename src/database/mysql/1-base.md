@@ -547,3 +547,21 @@ mysql> select ISNULL(1);
   ```sql
   INSTR(str,substr)
   ```
+
+# 并发连接和并发查询
+
+<b id="blue"> innodb_thread_concurrency</b>：用于控制并发线程的参数，一般建议设置为 64~128 之间的值
+
+并发连接和并发查询，并不是同一个概念。在 show processlist 的结果里，看到的几千个连接，指的就是并发连接。而“当前正在执行”的语句，才是我们所说的并发查询
+
+# 误删数据处理
+
+## 误删行
+
+1. Flashback 工具通过闪回把数据恢复回来（利用binlog）
+
+## 防止误删
+
+1. 把 sql_safe_updates 参数设置为 on。这样一来，如果我们忘记在 delete 或者 update语句中写 where 条件，或者 where 条件里面没有包含索引字段的话，这条语句的执行就会报错。
+2. 对账号做权限分离控制
+

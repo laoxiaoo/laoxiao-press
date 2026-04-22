@@ -1,7 +1,11 @@
 ---
 title: Mockito
+
 ---
 
+# 相关文档
+
+[Mockito 教程 | Baeldung中文网](https://www.baeldung-cn.com/mockito-series)
 
 # MockitoJUnitRunner方式
 
@@ -122,7 +126,11 @@ when(thirdPreparePaymentService.receiveOaApproveData(any()))
         .thenCallRealMethod();
 ```
 
+如果我们的方法没有返回值，上面的方法就会有问题(如果有返回值，就用上面的方式)，可以如下操作
 
+```java
+doCallRealMethod().when(thirdPreparePaymentService).syncStatusOnTaskExecuteFail(any(), any(), any());
+```
 
 ## 不调用某个方法
 
@@ -149,7 +157,29 @@ verify(userRelationService).saveUserRelations(
     }),
 ```
 
+## 参数匹配
 
+`any()`‌ - 匹配任何类型的参数。
+
+`eq()`‌ - 匹配等于某个值的参数。
+
+## verify
+
+### 验证调用次数
+
+```java
+List<String> mockedList = mock(MyList.class);
+mockedList.size();
+// 验证 size() 方法是否被调用了 1 次
+verify(mockedList, times(1)).size();
+```
+
+### 验证返回值
+
+```java
+List<PurOaCallbackTask> purOaCallbackTasks = verify(purOaCallbackTaskService).listPendingTasks(eq(100), anyString());
+Assertions.assertTrue(CollectionUtils.isEmpty(purOaCallbackTasks));
+```
 
 # 注解方式
 
