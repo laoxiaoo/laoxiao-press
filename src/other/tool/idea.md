@@ -241,3 +241,30 @@ spotbugs主要包括10大类bug
 
 2. 传入动态的端口号（application.yml不写死）
 3. 启动项目
+
+
+# Pychram
+
+
+## tar 包安装
+## 应用显示图标
+tar 包安装的 PyCharm，要出现在系统 “应用菜单 / 显示应用” 里，本质就是补一个 .desktop 启动文件
+
+先手动启动一次 PyCharm：
+bash运行
+
+```bash
+cd /opt/pycharm-xxx/bin   # 你的解压路径
+./pycharm.sh
+```
+
+打开后点菜单：
+
+```
+Tools → Create Desktop Entry...
+```
+
+勾选：
+Create the entry for all users（可选，需要密码）
+点 OK，提示成功后关闭 PyCharm。
+重新在系统菜单里搜 PyCharm，就能看到了。
