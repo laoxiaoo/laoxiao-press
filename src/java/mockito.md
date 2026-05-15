@@ -433,3 +433,74 @@ class FeignRedirectTest {
 
 从 [feign源码跟踪](/java/springcloud/3-restful?id=feign源码跟踪 )可以看到，通过LoadBalancerFeignClient#execute方法，进行lbClient的负载均衡调用，这里直接使用Client 就是为了避免再次进入mockito拦截的execute方法循环调用了
 
+# TDD
+
+## 基础概念
+
+### 单元测试
+
+一个方法就是一个单元
+
+针对这个方法测试，就是单元测试
+
+### 集成测试
+
+如果说，一个测试方法里，依赖了多个方法的测试，
+
+那么对这个方法测试，叫做集成测试
+
+### 重构and测试
+
+1. 我们在面对一段代码的重构时，往往可能改完，这里有问题哪里有问题
+2. 编写了测试用例，我们可以改一小段代码，运行测试用例，这样，能避免最小维度得调整导致问题
+
+
+
+### 红-绿-重构三部曲
+
+> 什么是红绿重构
+
+1. 比如我们遇到一个代码，我们需要重构他，我们可以每一小步得修改代码，都经历如下
+   1. 先运行一个不通过得测试用例，运行不通过
+   2. 然后我们再改写代码，让测试用例变得通过为止
+
+## 测试先行
+
+> 在编写功能代码之前，先编写测试代码
+
+
+
+步骤 1：写测试
+
+```java
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+class CalculatorTest {
+    @Test
+    void testAdd() {
+        Calculator calc = new Calculator();
+        assertEquals(5, calc.add(2, 3));
+    }
+}
+```
+
+步骤 2：写功能代码
+
+```java
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+步骤 3：重构
+
+```java
+public class Calculator {
+    public int add(int a, int b) {
+        return Math.addExact(a, b);
+    }
+}
+```
+
