@@ -3,11 +3,48 @@ title: Mockito
 
 ---
 
+# Junit
+
+## 测试方法命名
+
+一般命名为
+
+被测试方法_测试目的__返回值
+
+如： 
+
+```java
+void login_pass_returnToken() {
+    
+}
+```
+
+## 单元测试与集成测试
+
+### 单元测试
+
+一个方法就是一个单元
+
+针对这个方法测试，就是单元测试
+
+*一般来说，单元测试不需要加载其他环境（隔离了运行环境），比如springboot/ 数据库等*
+
+### 集成测试
+
+如果说，一个测试方法里，依赖了多个方法的测试，
+
+那么对这个方法测试，叫做集成测试
+
+### 结合
+
+如果说我们遇到一个方法，里面调用了很多子方法，比如查询数据库，此时，我们可以采用，先测试子方法（单元测试）
+对父方法测试得时候，我们可以将子方法mock 返回值（因为前面已经对子方法单元测试了）
+
 # 相关文档
 
 [Mockito 教程 | Baeldung中文网](https://www.baeldung-cn.com/mockito-series)
 
-# MockitoJUnitRunner方式
+# Mockito基本使用
 
 ```java
 private AccountDao accountDao;
@@ -183,6 +220,32 @@ Assertions.assertTrue(CollectionUtils.isEmpty(purOaCallbackTasks));
 
 # 注解方式
 
+## @ExtendWith
+
+### 核心作用
+
+1. 为测试添加**自定义能力**（如依赖注入、参数化、Mock、生命周期扩展）
+2. 是 JUnit 5 所有扩展的**统一入口**
+3. 可同时加载**多个扩展**，用逗号分隔
+
+```java
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+// 启用 Mockito 扩展
+@ExtendWith(MockitoExtension.class)
+public class UserServiceTest {
+
+    // 可以直接使用 @Mock @InjectMocks
+    @Mock
+    private UserRepository userRepository;
+}
+```
+
+
+
+
+
 ## @Mock
 
 相当于<b id="blue">Mockito.mock(AccountDao.class)</b>，创建一个mock对象，如下:
@@ -228,7 +291,7 @@ List list = Mockito.spy(realList);
 
 ## @InjectMocks
 
-> 单独使用
+### 单独使用
 
  如果使用InjectMocks，则 <b id="blue">@Mock</b>或者<b id="blue">@Spy</b>的对象会注入属性中
 
@@ -256,7 +319,7 @@ private UserManager userManager;
 private UserServiceImpl userService;
 ```
 
-> 配合spring使用
+### 配合spring使用
 
 1. 定义一个service，注意，UserServiceImpl是加入了容器中的
 
@@ -281,6 +344,34 @@ private UserManager userManager = new UserManagerSpy();
 @InjectMocks
 @Autowired
 private UserServiceImpl userService;
+```
+
+
+
+# 断言
+
+包：`import static org.junit.jupiter.api.Assertions.*;`
+
+```java
+// 判断相等
+assertEquals(预期值, 实际值);
+assertEquals(10, num);
+
+// 判断不相等
+assertNotEquals(10, num);
+
+// 判断为 true
+assertTrue(条件);
+assertTrue(num > 5);
+
+// 判断为 false
+assertFalse(条件);
+
+// 判断为空
+assertNull(obj);
+
+// 判断非空
+assertNotNull(obj);
 ```
 
 
@@ -437,18 +528,6 @@ class FeignRedirectTest {
 
 ## 基础概念
 
-### 单元测试
-
-一个方法就是一个单元
-
-针对这个方法测试，就是单元测试
-
-### 集成测试
-
-如果说，一个测试方法里，依赖了多个方法的测试，
-
-那么对这个方法测试，叫做集成测试
-
 ### 重构and测试
 
 1. 我们在面对一段代码的重构时，往往可能改完，这里有问题哪里有问题
@@ -467,6 +546,11 @@ class FeignRedirectTest {
 ## 测试先行
 
 > 在编写功能代码之前，先编写测试代码
+>
+> 1. 在编写一个逻辑之前，我们确认这个原有方法得输入输出，得到改变这个逻辑之后的输出为什么
+> 2. 编写测试用例，传入参数，此时输出得参数肯定不会满足逻辑（红）
+> 3. 调整方法得逻辑，运行测试用例，要求能够满足测试用例得运行（绿）
+> 4. 再对方法进行重构
 
 
 
@@ -504,3 +588,26 @@ public class Calculator {
 }
 ```
 
+## 明确测试目标
+
+我们在测试一个方法得时候
+
+真实得场景可能是：一个方法里很多个if逻辑，有多个方法调用，那么这些方法我们需不需要测试呢
+
+所以此时，我们需要明确我们本次调整需要测试得方法
+
+比如：遇到代码
+
+```java
+if(a) {
+
+	A()
+
+} eles {
+
+	B()
+
+}
+```
+
+此时，我们需要针对这两个逻辑，分别编写不同得测试用例
