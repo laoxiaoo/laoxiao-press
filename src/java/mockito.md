@@ -405,8 +405,6 @@ public void getUserInfo() {
 
 
 
-
-
 ## 场景验证
 
 假定有：
@@ -523,6 +521,52 @@ class FeignRedirectTest {
 > 为什么要使用：Client directClient = new Client.Default(null, null)方法，进行directClient.execute(newRequest, options)直连调用
 
 从 [feign源码跟踪](/java/springcloud/3-restful?id=feign源码跟踪 )可以看到，通过LoadBalancerFeignClient#execute方法，进行lbClient的负载均衡调用，这里直接使用Client 就是为了避免再次进入mockito拦截的execute方法循环调用了
+
+
+
+# SpringMVC测试
+
+1. 以注解WebMvcTest来标识需要测试得controller
+
+2. 可以使用import注解来将对象注入spring容器
+3. 从容器中取出MockMvc来进行模拟http调用
+
+```java
+@WebMvcTest(value = {LoginController.class})
+@Import(DeepServiceImpl.class)
+public class LoginControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+
+
+    @Test
+    public void login_adminLogin_returnPass() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/login") // 你的接口路径（必须和@RequestMapping匹配）
+                                .param("username", "admin") // 传入参数
+                )
+                .andExpect(view().name("500")); // 断言返回视图是 500
+    }
+}
+```
+
+
+
+# 仓储层的测试
+
+1. 作为测试用例得数据库，一般来说，是需要与业务数据库隔离的
+2. 作为仓储层得测试，因为与外界产生了关联，所以已不属于单元测试范围，已属于集成测试的范围
+
+
+
+# SpringBootTest
+
+1. 一般来说，我们反对使用这个注解，因为这个注解，会加载整个项目，单元测试的成本会特别得高
+2. 比如我们的环境成本：redis、数据库、依赖接口等，清理后期产生的数据等
+3. 为什么还要使用它呢？
+   1. 他可以做全流程的接口测试
 
 # TDD
 
