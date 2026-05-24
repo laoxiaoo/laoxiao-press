@@ -568,6 +568,92 @@ public class LoginControllerTest {
 3. 为什么还要使用它呢？
    1. 他可以做全流程的接口测试
 
+###  WebTestClient vs MockMvc 对比
+
+如果项目传统 是 Spring MVC，不是 WebFlux，建议使用 MockMvc，否则会有兼容问题
+
+| 特性     | MockMvc                  | WebTestClient                          |
+| -------- | ------------------------ | -------------------------------------- |
+| 模块     | spring-test              | spring-webflux-test                    |
+| 风格     | 流式 API，同步调用       | 流式 API，支持响应式                   |
+| 适用场景 | 传统 Spring MVC          | Spring MVC + WebFlux                   |
+| 断言方式 | andExpect/andDo          | expectBody/expectStatus                |
+| 依赖     | spring-boot-starter-test | 需额外添加 spring-boot-starter-webflux |
+
+ 实现方案
+
+ 1. 添加依赖 (pom.xml)
+
+ 在 isrm-pur/isrm-pur-base/isrm-pur-starter/pom.xml 中添加：
+
+```xml
+
+ <dependency>
+     <groupId>org.springframework.boot</groupId>
+     <artifactId>spring-boot-starter-webflux</artifactId>
+     <scope>test</scope>
+ </dependency>
+
+```
+
+ 2. WebTestClient 使用示例
+
+ ```java
+ 
+ // GET 请求
+ webTestClient.get()
+     .uri("/api/users/{id}", "123")
+     .exchange()
+     .expectStatus().isOk()
+     .expectBody()
+     .jsonPath("$.name").isEqualTo("张三");
+
+ // POST 请求
+ webTestClient.post()
+     .uri("/api/users")
+     .contentType(MediaType.APPLICATION_JSON)
+     .bodyValue(userParam)
+     .exchange()
+     .expectStatus().isOk()
+     .expectBody(User.class)
+     .value(user -> {
+         assertEquals("张三", user.getName());
+     });
+
+ // 验证返回 JSON
+ webTestClient.post()
+     .uri("/payment/plan/queryPage")
+     .contentType(MediaType.APPLICATION_JSON)
+     .bodyValue(requestJson)
+     .exchange()
+     .expectStatus().isOk()
+     .expectBody()
+     .jsonPath("$.code").isEqualTo(200)
+     .jsonPath("$.data.list").isNotEmpty();
+ 
+ ```
+
+## MockMVC
+
+```java
+@Test
+public void testGetPaymentPlanInvoiceApplyDefault() throws Exception {
+    String json = "{\n" +
+            "    \"companyId\": \"1\",\n" +
+            "    \"supplierId\": \"SUP001\",\n" +
+            "    \"storeHouseCode\": \"WH001\",\n" +
+            "    \"businessPersonCodes\": [\"EMP001\"]\n" +
+            "}";
+
+    MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.post("/payment/plan/getPaymentPlanInvoiceApply")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(json))
+            .andExpect(status().isOk())
+            .andReturn();
+    log.info(formatJson(mvcResult.getResponse().getContentAsString()));
+}
+```
+
 # TDD
 
 ## 基础概念

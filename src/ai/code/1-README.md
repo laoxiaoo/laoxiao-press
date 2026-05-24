@@ -579,6 +579,15 @@ LLM负责思考和推理，RAG负责提供准确的信息，AI Agent负责具体
 
 ![image-20260327163827101](./image/README/image-20260327163827101.png)
 
+| 审批模式       | 触发条件         | 用户体验 | 安全级别 | 推荐场景           |
+| -------------- | ---------------- | -------- | -------- | ------------------ |
+| **on-request** | 每次写操作前确认 | 交互频繁 | 🔒 最高   | 重要项目、学习阶段 |
+| **never**      | 从不要求确认     | 完全自动 | ⚡ 最低   | 信任环境、批量操作 |
+| **on-failure** | 操作失败时确认   | 平衡体验 | 🛡️ 中等   | 日常开发、稳定项目 |
+| **untrusted**  | 不信任操作时确认 | 智能判断 | 🧠 智能   | 复杂项目、团队协作 |
+
+
+
 > 沙盒模式进入示例
 
 ```bash
@@ -586,9 +595,6 @@ LLM负责思考和推理，RAG负责提供准确的信息，AI Agent负责具体
 codex --sandbox workspace-write
 
 # 带审批确认的工作区写入
-codex --sandbox workspace-write --ask-for-approval on-request
-
-
 # 每次操作前确认
 codex --sandbox workspace-write --ask-for-approval on-request
 
@@ -658,3 +664,13 @@ codex
 > /approval on-request      # 设置审批模式
 > /status                   # 查看当前权限状态
 ```
+
+> 直接设置默认模式
+
+```toml
+## 运行命令vim ~/.codex/config.toml
+
+sandbox_mode = "workspace-write"
+approval_policy = "never"
+```
+
