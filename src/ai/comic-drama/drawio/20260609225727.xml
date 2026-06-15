@@ -1,0 +1,35 @@
+<mxfile host="app.diagrams.net">
+  <diagram id="video-edit-flow" name="剪辑流程">
+    <mxGraphModel dx="1600" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <!-- 第一块：画面 -->
+        <mxCell id="boxA" value="一、画面&#10;1.镜头导入&#10;2.镜头剪辑（含补充镜头制作）&#10;3.转场补充" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6edf7;strokeColor=#2c5292;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="50" y="150" width="320" height="300" as="geometry"/>
+        </mxCell>
+
+        <!-- 第二块：声音 -->
+        <mxCell id="boxB" value="二、声音&#10;1.角色台词&#10;2.音效&#10;3.音乐BGM" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6edf7;strokeColor=#2c5292;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="480" y="150" width="320" height="300" as="geometry"/>
+        </mxCell>
+
+        <!-- 第三块：最终调整 -->
+        <mxCell id="boxC" value="三、最终调整&#10;1.字幕&#10;2.画面调色&#10;3.成片导出" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#e6edf7;strokeColor=#2c5292;fontSize=18;" vertex="1" parent="1">
+          <mxGeometry x="910" y="150" width="320" height="300" as="geometry"/>
+        </mxCell>
+
+        <!-- 箭头 A→B -->
+        <mxCell id="arrowAB" value="" style="endArrow=block;html=1;strokeWidth=4;strokeColor=#2b74d9;" edge="1" parent="1" source="boxA" target="boxB">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- 箭头 B→C -->
+        <mxCell id="arrowBC" value="" style="endArrow=block;html=1;strokeWidth=4;strokeColor=#2b74d9;" edge="1" parent="1" source="boxB" target="boxC">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
