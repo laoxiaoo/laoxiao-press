@@ -1,5 +1,5 @@
 ---
-title: 并发编程
+title: 线程工具类
 ---
 
 # ThreadLocal
@@ -66,6 +66,13 @@ static class Entry extends WeakReference<ThreadLocal<?>> {
 - 当threadlocal强引用（即定义的时候）断开后，弱引用GC后就会垃圾回收，value还没有被回收，所以还是需要手动remove
 
 ![image-20220423141053022](./image/api/image-20220423141053022.png)
+
+## 底层结构
+1. 每一个Thread线程对象里自带一个私有容器：ThreadLocalMap，不用 ThreadLocal 时不会创建，第一次 set 才初始化，节省内存；
+
+2. ThreadLocalMap存储单元是Entry，key=ThreadLocal 实例（弱引用），value = 你 set 进去的数据（强引用）；
+
+3. 只要外部没有强引用持有 ThreadLocal 对象，GC 时 key 会自动被回收；但 value 是强引用，不会自动清理。
 
 ## Hash冲突解决
 
