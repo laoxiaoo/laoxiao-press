@@ -1322,3 +1322,25 @@ cv2.destroyAllWindows()
 | try-except | 异常处理 |
 | raise | 抛出异常 |
 | with | 上下文管理器 |
+
+
+# 多模块开发
+解决 Python 导入模块路径报错有两种方案，优劣分明：
+1. 暴力硬编码绝对路径（不推荐）
+直接在代码中写死项目绝对路径以临时解决 import 报错，但存在明显缺陷：代码移植性极差；若改用配置文件存放路径，读取配置本身又会产生路径依赖，形成死循环，仅适合临时应急，不作为规范写法。
+2. 虚拟环境配置 PYTHONPATH（推荐规范方案）
+利用 virtualenv 为项目创建独立隔离环境，保障依赖纯净；在虚拟环境activate脚本末尾添加export PYTHONPATH=项目根目录，激活环境时会自动将项目根加入 Python 模块搜索路径，无硬编码问题、可随环境复用，是工程化标准做法。
+
+## import不执行
+
+巧用if __name__ == '__main__'来避开 import 时执行。
+比如
+
+```python
+
+if __name__ == '__main__':
+    print('testing')
+    print('{} + {} = {}'.format(1, 2, get_sum(1, 2)))
+
+```
+在导入的时候，不会执行
