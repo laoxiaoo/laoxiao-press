@@ -1,8 +1,11 @@
-# Python 学习文档
-
-本文档基于项目中的示例代码，系统讲解Python基础语法、函数、面向对象、数据库操作、多线程、网络请求和图像处理等核心知识。
+---
+ 
+titil: Python 学习文档
 
 ---
+本文档基于项目中的示例代码，系统讲解Python基础语法、函数、面向对象、数据库操作、多线程、网络请求和图像处理等核心知识。
+
+
 
 
 
@@ -31,7 +34,7 @@ F:\git\gitee\llmops\llmops-api>python -m venv env
 
 2. 在环境目录下能够看见如下的文件
 
-![image-20260326231426068](image/1-base/image-20260326231426068.png)
+![image-20260326231426068](./image/1-base/image-20260326231426068.png)
 
 3. 激活虚拟环境
 
@@ -65,7 +68,7 @@ global.index-url='https://mirrors.cloud.tencent.com/pypi/simple'
 
 在setting下，能看到这个选项，关联了某个项目的虚拟环境
 
-![image-20260330222227874](image/1-base/image-20260330222227874.png)
+![image-20260330222227874](./image/1-base/image-20260330222227874.png)
 
 运行一个hello word输出程序，验证虚拟环境
 
@@ -75,7 +78,7 @@ global.index-url='https://mirrors.cloud.tencent.com/pypi/simple'
 
 优化导入：如果没有使用这个类，就会自动清除掉
 
-![image-20260330222622591](image/1-base/image-20260330222622591.png)
+![image-20260330222622591](./image/1-base/image-20260330222622591.png)
 
 # Python的包
 
