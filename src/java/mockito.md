@@ -654,6 +654,62 @@ public void testGetPaymentPlanInvoiceApplyDefault() throws Exception {
 }
 ```
 
+## 替换openfeign的目标地址
+
+```java
+@lombok.extern.slf4j.Slf4j
+@Slf4j
+public class BaseTest {
+    @SpyBean
+    private Client feignClient;
+    static Client directClient = new Client.Default(null, null);
+    public void proxyInterface() {
+        try {
+            proxyInterface("isrm-sup-provider","192.168.226.98:19012");
+            //proxyInterface("isrm-contract-provider", "127.0.0.1:18021");
+            proxyInterface("isrm-system-provider", "192.168.226.98:11113");
+        } catch (Exception e) {
+            log.error("远程调用mock异常", e);
+        }
+
+    }
+    public void proxyInterface(String u, String s) throws IOException {
+        doAnswer(invocation -> {
+            Request originalRequest = invocation.getArgument(0);
+            Request.Options options = invocation.getArgument(1);
+
+            String url = originalRequest.url();
+            System.out.println("拦截到请求: " + url);
+
+            // 3. 构建新的 URL，替换服务名为本地地址
+            // 原始 URL 可能是 "http://isrm-sup-provider/supplier/..."
+            // 我们将其替换为 "http://127.0.0.1:19012/supplier/..."
+            // 注意：如果使用了 Ribbon/LoadBalancer，这里的 URL host 通常是服务名
+            String newUrl = url.replace(u, s);
+            System.out.println("替换后的请求URL: " + newUrl);
+            // 4. 创建新请求对象
+            Request newRequest = Request.create(
+                    originalRequest.httpMethod(),
+                    newUrl,
+                    originalRequest.headers(),
+                    originalRequest.body(),
+                    originalRequest.charset(),
+                    originalRequest.requestTemplate()
+            );
+
+            // 5. 使用直连 Client 发起请求
+            return directClient.execute(newRequest, options);
+
+        }).when(feignClient).execute(
+                argThat(request -> request.url().contains(u)),
+                any()
+        );
+    }
+}
+```
+
+
+
 # TDD
 
 ## 基础概念
