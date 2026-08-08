@@ -11,7 +11,7 @@ export const javaSidebarConfig = {
                     text: 'Api使用',
                     prefix: 'api/',
                     collapsible: true,
-                    children: ['1-base', '2-thread', '3-bigDecimal', '4-map', '6-stream', '7-jackson'],
+                    children: ['1-base', '3-bigDecimal', '4-map', '6-stream', '7-jackson'],
                 },
                 {
                     text: '并发编程',
@@ -27,6 +27,7 @@ export const javaSidebarConfig = {
                         '3-method',
                         '4-signalCommunication',
                         '7-threadpool',
+                        '8-thread'
                     ],
                 },
             ],
