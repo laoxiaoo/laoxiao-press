@@ -1,10 +1,10 @@
 ---
-title: 并发编程
+title: 线程工具类
 ---
 
-# ThreadLocal
+## ThreadLocal
 
-## 使用方式
+#### 使用方式
 
 
 ```java
@@ -15,7 +15,7 @@ public void before() {
 }
 ```
 
-## 基本结构
+#### 基本结构
 
 - 如下：每个线程类都有一个成员变量，ThreadLocal.ThreadLocalMap，里面存储的就是key-value的threadlocalset的值
 
@@ -50,7 +50,7 @@ private void set(ThreadLocal<?> key, Object value) {
 }
 ```
 
-- Entry，实现了弱引用，而弱应用指向了当前的key（ThreadLocal）
+- Entry，继承了弱引用，而弱引用指向了当前的key（ThreadLocal）
 
 ```java
 static class Entry extends WeakReference<ThreadLocal<?>> {  
@@ -65,9 +65,16 @@ static class Entry extends WeakReference<ThreadLocal<?>> {
 - value 即我们set的值
 - 当threadlocal强引用（即定义的时候）断开后，弱引用GC后就会垃圾回收，value还没有被回收，所以还是需要手动remove
 
-![image-20220423141053022](./image/api/image-20220423141053022.png)
+![image-20220423141053022](./image/image-20220423141053022.png)
 
-## Hash冲突解决
+#### 底层结构
+1. 每一个Thread线程对象里自带一个私有容器：ThreadLocalMap，不用 ThreadLocal 时不会创建，第一次 set 才初始化，节省内存；
+
+2. ThreadLocalMap存储单元是Entry，key=ThreadLocal 实例（弱引用），value = 你 set 进去的数据（强引用）；
+
+3. 只要外部没有强引用持有 ThreadLocal 对象，GC 时 key 会自动被回收；但 value 是强引用，不会自动清理。
+
+#### Hash冲突解决
 
 1. 初始化ThreadLocalMap
 
@@ -75,7 +82,7 @@ static class Entry extends WeakReference<ThreadLocal<?>> {
 ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
     // 初始化table
     table = new Entry[INITIAL_CAPACITY];
-    //计算缩影
+    //计算索引
     int i = firstKey.threadLocalHashCode & (INITIAL_CAPACITY - 1);
     //设置值
     table[i] = new Entry(firstKey, firstValue);
@@ -84,12 +91,14 @@ ThreadLocalMap(ThreadLocal<?> firstKey, Object firstValue) {
 }
 ```
 
-2.  firstKey.threadLocalHashCode的计算方式
+2. threadLocalHashCode 的赋值方式
+
+每个 ThreadLocal 实例在创建时，通过静态方法 `nextHashCode()` 获取一个唯一的 hash 值：
 
 ```java
 private static AtomicInteger nextHashCode =
     new AtomicInteger();
-//每次获取值都会 加上一个hash散列值
+//每次获取值都会加上一个hash散列值（HASH_INCREMENT = 0x61c88647，即 Fibonacci 散列增量）
 private static int nextHashCode() {
     return nextHashCode.getAndAdd(HASH_INCREMENT);
 }
@@ -107,9 +116,9 @@ for (Entry e = tab[i];
 该方法一次探测下一个地址，直到有空的地址后插入，若整个空间都找不到空余的地址，则产生溢出。
 举个例子，假设当前table长度为16，也就是说如果计算出来key的hash值为14，如果table[14]上已经有值，并且其key与当前key不一致，那么就发生了hash冲突，这个时候将14加1得到15，取table[15]进行判断，这个时候如果还是冲突会回到0，取table[0],以此类推，直到可以插入。
 
-## ThreadLocalMap扩容机制
+#### ThreadLocalMap扩容机制
 
-添加了元素后，会判断当前下标往后的元素是否存在需要value回收的，如果不存在需要回收并且当前总元素大于等于阈值，那么就会调用rehash()扩容。扩容之前还会再重新对key已经被GC了的元素进行回收，回收后如果总数还是大于等于阈值的3/4，那么就会调用resize()进行真正的扩容
+添加了元素后，会判断当前下标往后的元素是否存在需要value回收的，如果不存在需要回收并且当前总元素大于等于阈值，那么就会调用rehash()扩容。扩容之前还会再重新对key已经被GC了的元素进行回收，回收后如果总数还是大于等于阈值（阈值为容量的2/3），那么就会调用resize()进行真正的扩容（扩容为原来的2倍）
 
 ```java
 tab[i] = new Entry(key, value);
@@ -117,26 +126,28 @@ int sz = ++size;
 if (!cleanSomeSlots(i, sz) && sz >= threshold)
     rehash();
 ```
-## 总结
+#### 总结
 
 ThreadLocal通过每个线程持有的ThreadLocalMap实现数据隔离。该Map的Key是ThreadLocal的弱引用，Value是线程本地变量。当调用get()时，通过当前线程获取Map，再以ThreadLocal实例为Key查找值
 
-# FastThreadLocal
+## FastThreadLocal
 
 在java线程中，每个线程都有一个ThreadLocalMap实例变量（如果不使用ThreadLocal，不会创建这个Map，一个线程第一次访问某个ThreadLocal变量时，才会创建）。该Map是使用线性探测的方式解决hash冲突的问题，如果没有找到空闲的slot，就不断往后尝试，直到找到一个空闲的位置，插入entry，这种方式在经常遇到hash冲突时，影响效率。
 
-FastThreadLocal(下文简称ftl)直接使用数组避免了hash冲突的发生，具体做法是：每一个FastThreadLocal实例创建时，分配一个下标index；分配index使用AtomicInteger实现，每个FastThreadLocal都能获取到一个不重复的下标。当调用ftl.get()方法获取值时，直接从数组获取返回，如return array[index]
+FastThreadLocal(下文简称ftl)直接使用数组避免了hash冲突的发生，具体做法是：每一个FastThreadLocal实例创建时，分配一个下标index；分配index使用AtomicInteger实现，每个FastThreadLocal都能获取到一个不重复的下标。当调用ftl.get()方法获取值时，直接从数组获取返回，如return array[index]。
+
+FastThreadLocal 需要配合 Netty 的 FastThreadLocalThread 使用，该线程类内部维护了一个 InternalThreadLocalMap（本质是 Object[] 数组），才能真正做到 array[index] 的 O(1) 访问。如果使用普通 Thread，则退化为与 ThreadLocal 类似的方式。
 
 
 Netty 的 FastThreadLocal 是一个高性能的线程本地变量实现，它与 Java 标准库中的 ThreadLocal 类似，但具有更高的性能和更低的内存消耗
 
-# LinkedeList和ArrayList
+## LinkedList和ArrayList
 
 > ArrayList
 
 ArrayList内部是一个elementData的数组
 
-在初始化指定或不指定是，ArrayList的大小size=0
+在初始化指定或不指定时，ArrayList的大小size=0
 
 ```java
 public ArrayList(int initialCapacity) {
@@ -187,7 +198,7 @@ transient Node<E> last;
 
 注意点：
 
-1. 遍历LinkedList必须使用iterator不能使用for循环，因为每次for循环体内通过get(i)取得某一元素时都需要对list重新进行遍历，性能消耗极大。
+1. 遍历LinkedList应使用iterator或增强for循环，避免使用索引for循环（for + get(i)），因为每次get(i)都需要对list重新进行遍历，性能消耗极大（时间复杂度O(n²)）。
 2. 另外不要试图使用indexof等返回元素索引，并利用其进行遍历，使用indexlOf对list进行了遍历，当结果为空时会遍历整个列表。
 
 > 总结
@@ -196,7 +207,7 @@ transient Node<E> last;
 2. LinkedList就插入(add(index))，删除(remove(index))，查找(get(index))都要进行循环遍历节点，去获取index位置的节点，这里采用的node函数判断了长度的一半，进行前后遍历才节省遍历时间
 3. ArrayList：就插入，和删除，都要进行数组的System.arrayCopy操作，进行数组的挪移，插入还要校验扩容
 
-# final
+## final
 
 1. 修饰类:表示类不可被继承
 
@@ -213,7 +224,7 @@ transient Node<E> last;
 2. 如果外部类方法结束，局部变量就销毁了，但是内部类对象还存在，此时如果内部类使用这个变量就会有问题
 3. jvm为了解决这个这个问题，就将局部变量复制一份放到内部类中，此时，为了保证两个变量一致，所以外面的就不能再修改
 
-# HashMap和HashTable
+## HashMap和HashTable
 
 HashMap方法没有synchronized修饰，线程非安全，
 

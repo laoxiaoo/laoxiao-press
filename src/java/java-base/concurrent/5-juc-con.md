@@ -1,9 +1,8 @@
-
 ---
 title: juc集合
 ---
 
-# 集合类
+## 集合类
 
 ```mermaid
 graph TD;
@@ -28,9 +27,9 @@ JUC安全集合 -->Concurrent类
       历，这时内容是旧的  
    2. 求大小弱一致性，size 操作未必是 100% 准确  
 
-# ConcurrentHashMap
+## ConcurrentHashMap
 
-## 1.7版本
+#### 1.7版本
 
 ![image-20250407124606533](./image/5-juc-con/image-20250407124606533.png)
 
@@ -39,7 +38,7 @@ JUC安全集合 -->Concurrent类
 - 优点:如果多个线程访问不同的segment，实际是没有冲突的，这与jdk8中是类似的
 - 缺点：Segments 数组默认大小为16，这个容量初始化指定后就不能改变了，并且不是懒惰初始化  
 
-## 1.8版本
+#### 1.8版本
 
 使用数组+链表+红黑树数据结构和CAS原子操作实现;
 
@@ -47,7 +46,7 @@ JUC安全集合 -->Concurrent类
 
 ![image-20250521102808843](./image/5-juc-con/image-20250521102808843.png)
 
-### 重要属性
+###### 重要属性
 
 ```java
 // 默认为 0
@@ -95,7 +94,7 @@ public ConcurrentHashMap(int initialCapacity,
 }
 ```
 
-### put流程
+###### put流程
 
 table 为存储hash数组，存储k-v的数据数组
 
@@ -184,9 +183,9 @@ final V putVal(K key, V value, boolean onlyIfAbsent) {
 
 
 
-### get流程
+###### get流程
 
-- 整个get流程没有锁，因为数组被valitalex修饰，然后使用sun.misc.Unsafe#getObjectVolatile来保证数组元素的可见性
+- 整个get流程没有锁，因为数组被valitalex修饰，然后使用sun.misc.Unsafe##getObjectVolatile来保证数组元素的可见性
 
 ```java
 public V get(Object key) {
@@ -215,7 +214,7 @@ public V get(Object key) {
 
 
 
-### 初始化hash表
+###### 初始化hash表
 
 - 采用cas的方式进行创建表
 
@@ -245,7 +244,7 @@ private final Node<K,V>[] initTable() {
 }
 ```
 
-### addCount
+###### addCount
 
 **增加元素表的计数**
 
@@ -303,7 +302,7 @@ private final void addCount(long x, int check) {
 }
 ```
 
-### size计算
+###### size计算
 
 - size计算实际发生在put，remove改变集合元素的操作之中（addcount）
 - 没有竞争发生，向baseCount 累加计数
@@ -335,7 +334,7 @@ final long sumCount() {
 }
 ```
 
-## 一些面试题
+#### 一些面试题
 
 1. 为什么HashTable慢? 它的并发度是什么? 那么ConcurrentHashMap并发度是什么?
 
@@ -359,11 +358,11 @@ final long sumCount() {
 
 
 
-# CopyOnWriteArrayList
+## CopyOnWriteArrayList
 
 
 
-## 一些面试题
+#### 一些面试题
 
 - 请先说说非并发集合中Fail-fast机制?
 
@@ -406,9 +405,9 @@ Fail-fast（快速失败）是 Java 集合框架中一种错误检测机制，�
 - CopyOnWriteArrayList为什么并发安全且性能比Vector好?
 - CopyOnWriteArrayList有何缺陷，说说其应用场景?
 
-# ConcurrentLinkedQueue
+## ConcurrentLinkedQueue
 
 
 
-## 一些面试题
+#### 一些面试题
 

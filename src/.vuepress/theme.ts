@@ -110,8 +110,8 @@ export default hopeTheme({
     // 在启用之前安装 flowchart.ts
     // flowchart: true,
 
-    // 在启用之前安装 mermaid
-    // mermaid: true,
+    // mermaid 图表支持
+    mermaid: true,
 
     // markmap 插件
     markmap: true,
