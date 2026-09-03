@@ -16,7 +16,7 @@ titil: Python 学习文档
 >
 > 缺点：占用更大的空间，进入虚拟环境都需要使用命令activate激活才能使用，使用完，要使用deactivate命令退出。
 
-# 创建
+## 创建
 
 通过命令行创建
 
@@ -51,7 +51,7 @@ F:\git\gitee\llmops\llmops-api>env\Scripts\activate
 (env) F:\git\gitee\llmops\llmops-api>env\Scripts\deactivate.bat
 ```
 
-# 配置镜像路径
+## 配置镜像路径
 
 ```shell
 (env) F:\git\gitee\llmops\llmops-api>pip config set global.index-url https://mirrors.cloud.tencent.com/pypi/simple
@@ -61,6 +61,63 @@ Writing to C:\Users\25181\AppData\Roaming\pip\pip.ini
 (env) F:\git\gitee\llmops\llmops-api>pip config list
 global.index-url='https://mirrors.cloud.tencent.com/pypi/simple'
 ```
+
+
+
+# Conda
+
+**Conda** 是一个**开源**的**包管理**和**环境管理**系统，能够在 Windows、macOS 和 Linux 上运行。它可以帮你安装、更新、卸载软件包，还能创建相互隔离的虚拟环境，从而避免不同项目之间的依赖冲突。
+
+- **包管理**：可以安装、更新、删除 Python 库、R 包、C/C++ 库等，不限于 Python 生态。
+- **环境管理**：每个项目可以拥有独立的运行环境，里面的 Python 版本、库的版本互不影响。
+  （比如项目 A 用 Python 3.8 + NumPy 1.21，项目 B 用 Python 3.11 + NumPy 1.26，两者可以共存。）
+
+## 发行版本
+
+- **Anaconda**
+  一个集合了 Conda + 1500+ 个数据科学常用包 + 图形界面的大而全发行版，适合新手和数据科学用户。
+- **Miniconda**
+  只包含 Conda 和 Python 的最小化发行版，体积小，想用什么包自己装，更灵活，**推荐多数开发者使用**。
+
+> 简单理解：Miniconda = 纯净版，需要什么装什么；Anaconda = 预装全家桶。
+
+## 下载安装包
+
+方式一：官网下载（适合网络条件好的用户）
+
+访问官方页面：https://docs.anaconda.com/miniconda/
+根据你的系统选择对应的版本（Windows `.exe` / macOS `.pkg` / Linux `.sh`）。
+
+方式二：国内镜像下载（推荐，速度快）
+
+进入清华大学开源镜像站：https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/
+你会看到类似 `Miniconda3-latest-Windows-x86_64.exe`、`Miniconda3-latest-Linux-x86_64.sh` 等文件，下载对应系统的最新版即可。
+
+## 常用命令
+
+- 创建：`conda create -n 环境名 python=版本`
+- 激活：`conda activate 环境名`；退出：`conda deactivate`
+- 查看环境：`conda env list`（可看到每个环境存放位置，重装系统时可单独拷出）
+- 查看包：`pip list`（不同环境安装的包不同）
+
+```shell
+(base) xiaojie ▶ ~/gitcode/python-stu master $ conda activate myenv
+(myenv) xiaojie ▶ ~/gitcode/python-stu master $ pip list
+Package    Version
+---------- -------
+packaging  26.1
+pip        26.1.2
+setuptools 83.0.0
+wheel      0.47.0
+```
+
+## 依赖导出与还原
+
+- 导出：`pip freeze > requirements.txt`
+- 还原：`pip install -r requirements.txt`（**直接还原，不要顺手升级**）
+- 意义：把跑通的环境整体打包交给别人，别人创建虚拟环境 → 放入文件 → 按 requirements.txt 装包，即可复现。
+
+
 
 # PyCharm配置
 
@@ -79,6 +136,8 @@ global.index-url='https://mirrors.cloud.tencent.com/pypi/simple'
 优化导入：如果没有使用这个类，就会自动清除掉
 
 ![image-20260330222622591](./image/1-base/image-20260330222622591.png)
+
+
 
 # Python的包
 
