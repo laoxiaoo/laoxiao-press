@@ -44,6 +44,18 @@ export default navbar([
     link: "/java/",
   },
   {
+    text: "理财",
+    icon: "sack-dollar",
+    prefix: "/wealth/",
+    children: [
+      {
+        text: "投资理论",
+        icon: "chart-line",
+        link: "investment.html",
+      },
+    ],
+  },
+  {
     text: "其他",
     icon: "file",
     link: "/other/",
