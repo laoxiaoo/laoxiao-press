@@ -25,7 +25,7 @@ class Thread implements Runnable {
     //每个thread都会有这个属性
     ThreadLocal.ThreadLocalMap threadLocals = null;
 ```
-![](./image/20210716083822.png)
+<!-- 图片缺失，待补充：./image/20210716083822.png -->
 
 - 当set的时候，先获取当前线程的ThreadLocalMap
 
